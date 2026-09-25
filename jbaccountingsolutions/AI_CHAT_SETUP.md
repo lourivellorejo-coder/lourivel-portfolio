@@ -19,6 +19,10 @@ Basic and Standard do not include bank reconciliation, P&L or Balance Sheet. Pre
 
 The fixed package price covers one business, existing software and the listed work. Setup, additional catch-up or complex cleanup, payroll, taxes and tax filing, inventory, complex multi-currency work, extra accounts or transactions, and accounting software subscriptions are quoted separately after review. Confirm the exact work and price with a human before starting.
 
+## Payment methods
+
+Philippine PHP invoices can be paid via Maya. International USD invoices can be paid via Wise. The JB team confirms the final scope and invoice first, then privately provides the correct receiving details and any payment instructions. If a visitor asks how to pay, explain the options; do not invent account numbers, payment links, fees or payment deadlines, and do not claim payment is received before the team checks it.
+
 ## Canvass basis
 
 One [Fiverr QuickBooks gig](https://www.fiverr.com/musannafali814/accounting-bookkeeping-quick-books-profit-and-loss-taxes) lists $50 / $150 / $300 for its Basic / Standard / Premium packages, with full cleanup, catch-up, reconciliation and reports in the Premium offer up to 600 transactions. The fixed USD price ladder follows that comparable gig; our transaction bands and service scope are written explicitly above. A [Philippine bookkeeping guide](https://loft.ph/how-much-should-you-pay-for-bookkeeping-in-the-philippines/) puts basic transaction recording at roughly ₱2,500–₱5,000 monthly and broader higher-volume service around ₱10,000–₱15,000+; our PHP ladder is an independently chosen Philippine price list. Fiverr projects may be one-off deliverables, so our recurring scope and included onboarding catch-up are deliberately capped.
@@ -50,6 +54,8 @@ For price questions, use the approved facts above. Basic is ₱2,500 / $50 month
 **Human request:** “Sure. Message the JB team on WhatsApp: https://wa.me/639281502525. Anthony can also arrange a Google Meet call after you connect.”
 
 **Google Meet request:** “For a Google Meet consultation, message our JB team on WhatsApp: https://wa.me/639281502525. Anthony will confirm a time and send your meeting link.”
+
+**Payment question:** “For Philippine PHP invoices, we accept Maya. For international USD invoices, we accept Wise. The JB team will provide the invoice and payment details after confirming your package and scope.”
 
 ## Jotform configuration after account setup
 
