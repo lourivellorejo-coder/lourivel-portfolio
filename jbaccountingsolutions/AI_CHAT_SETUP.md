@@ -1,11 +1,11 @@
-# JB Accounting Solutions — AI chat setup draft
+# JB Accounting Solutions — Jotform AI chat setup draft
 
-Status: Fixed package rates selected from the canvass. The published site still uses the existing client inquiry form; the AI widget is not installed yet.
+Status: Fixed package rates selected from the canvass. The website changes are in a draft pull request. The Jotform AI Agent widget is not installed yet; it requires the public embed code from Lourivel's new agent.
 
 ## Website
 https://lourivellorejo-coder.github.io/lourivel-portfolio/jbaccountingsolutions/
 
-## Suggested service facts for Lyro
+## Suggested service facts for Jotform AI Agent
 
 JB Accounting Solutions offers monthly transaction support and full monthly bookkeeping for one business. Service is delivered remotely using the client's existing accounting software and records. Match the visitor's language (English or Filipino). Ask which country their business is in before quoting. A business in the Philippines sees PHP pricing; international clients (including US, UK, Australia and Canada) see the USD price list. These are billing currencies, not claims about a country's local currency.
 
@@ -23,23 +23,18 @@ The fixed package price covers one business, existing software and the listed wo
 
 One [Fiverr QuickBooks gig](https://www.fiverr.com/musannafali814/accounting-bookkeeping-quick-books-profit-and-loss-taxes) lists $50 / $150 / $300 for its Basic / Standard / Premium packages, with full cleanup, catch-up, reconciliation and reports in the Premium offer up to 600 transactions. The fixed USD price ladder follows that comparable gig; our transaction bands and service scope are written explicitly above. A [Philippine bookkeeping guide](https://loft.ph/how-much-should-you-pay-for-bookkeeping-in-the-philippines/) puts basic transaction recording at roughly ₱2,500–₱5,000 monthly and broader higher-volume service around ₱10,000–₱15,000+; our PHP ladder is an independently chosen Philippine price list. Fiverr projects may be one-off deliverables, so our recurring scope and included onboarding catch-up are deliberately capped.
 
-## Greeting on first arrival and service matching
+## Greeting on arrival and service matching
 
-Use the widget's **Home header**: “Welcome to JB Accounting Solutions”
-Use its **Home message**: “Need help with your books? Explore our services or chat with us.”
-
-Create one short proactive Tidio Flow using **First visit on site** -> **Send a chat message**:
+In Jotform AI Agent Builder > Publish > Chatbot, set **Greetings** to:
 “Hi! Welcome to JB Accounting Solutions 👋 What can we help you with today?”
-The greeting should appear on arrival without requiring the visitor to type. Send it once to a first-time visitor, then end the flow and leave text input available so Lyro can answer their questions. Avoid repeated sales pitches across pages.
+Set **Open by Default** to immediately when the page loads, so a visitor sees the greeting without clicking the avatar. Preview the widget on desktop and mobile. Optionally set the Welcome Page heading to “Welcome to JB Accounting Solutions” and its description to “Ask about bookkeeping services, monthly packages and pricing, or request a real person.” Keep public access enabled, so visitors are not asked to create a Jotform account.
 
-Set up to five conversation starters on the widget's Home screen:
+Use these common questions in the agent's knowledge and testing, and as suggested prompts only if the builder supports them:
 1. “Show me the monthly packages”
 2. “I need data entry”
 3. “I need cleanup or catch-up”
 4. “Can you help with QuickBooks or Xero?”
 5. “Connect me to live customer service”
-
-When a starter is chosen, let Lyro answer from the facts below. An explicit request for a person must go straight to the human handoff. A proactive Flow is a scripted greeting, while Lyro replies after a visitor starts a conversation. Review the Flow's monthly unique-visitor quota because greetings to every new visitor count against it.
 
 Offer the most relevant service once based on what the visitor says. Transaction data entry alone outside a monthly package is available by custom quote based on volume and software; it does not include reconciliation or financial statements unless explicitly agreed. The Basic and Standard monthly services cover transaction processing; Premium is full monthly bookkeeping. Other services are scoped and quoted separately. For cleanup questions, describe the small onboarding exception inside Premium before offering a custom quote for additional backlog or complex work. A visitor who asks about payroll, software setup or tax work should not be given a monthly package price as though it includes that service. Gather service type, approximate months or volume, software, country, and contact preference, then hand off or direct to the Client Inquiry form.
 
@@ -51,7 +46,7 @@ Offer the most relevant service once based on what the visitor says. Transaction
 - When asked which tier fits, ask for approximate monthly transaction count, number of bank and credit-card accounts, accounting software, and whether historical cleanup, payroll, inventory or tax work is involved. Suggest a tier only if the published limits fit. For Premium catch-up, count current and prior-month transactions together toward 600, with at most 100 from one prior month during onboarding.
 - Ask for a name and contact method only if needed for follow-up. Direct visitors to the site's Client Inquiry form for a scoped request.
 - Never ask for passwords, bank login credentials, full payment-card details, or private financial records in public chat.
-- When a visitor says “Can you connect me to live customer service?”, “human”, “talk to Lourivel”, or a similar request, hand off immediately. Do not keep them in the AI flow. If Lourivel is online, transfer to the live agent; if offline, create a ticket or message for follow-up. Do not promise a reply time that has not been approved.
+- When a visitor says “Can you connect me to live customer service?”, “human”, “talk to Lourivel”, or a similar request, tell them a team member can join and stop pitching services. Set up the available handoff notification or action in Jotform, then verify it works. Lourivel can use **Conversations Inbox > Take Over** on an active chat. If no one is available, collect a contact method or direct to the Client Inquiry form. Do not promise an unapproved reply time.
 - If the bot does not know an answer, say so and offer a human handoff.
 
 ## Example answers
@@ -71,12 +66,14 @@ Offer the most relevant service once based on what the visitor says. Transaction
 **Can you connect me to live customer service?**
 “Of course. I'll connect you with Lourivel or the JB Accounting Solutions team now.” [Trigger human handoff; if offline, use the offline ticket response.]
 
-## Tidio configuration after account setup
+## Jotform configuration after account setup
 
-1. Create a Tidio project owned by Lourivel. In Lyro, add the fixed package details as Q&A or knowledge sources. Verify each answer in the preview before enabling Lyro. Configure the Home header, message, starters and first-visit Flow above.
-2. In Lyro > Configure > Handoff, choose **Transfer conversation to agent** when online and **Create a ticket** when offline. Add the human-request guidance above if supported.
-3. In Tidio > Settings > Live Chat > Installation, copy the unique JavaScript installation code. Add it just before `</body>` in the JB site's `index.html`, and on other JB pages only if desired. Do not publish private API keys.
-4. Set the widget name and navy/gold colors, then test the first-visit greeting, AI rate answer, and both online and offline human handoff on the live site. Lourivel reads AI transcripts in Tidio Inbox > Lyro AI Agent, live chats in Inbox and older solved threads in Inbox > Solved. Turn on agent and offline-ticket notifications as desired.
-5. Keep the existing FormSubmit inquiry form as another way for clients to ask for a quote.
+1. In Lourivel's Jotform account, create an AI Agent named **JB Accounting Solutions Assistant**. Train it on the fixed package facts and the behavior above using instructions, extra information, and Q&A. Check the public JB site's package content against the agent's knowledge. Use the builder preview to test both PHP and USD price answers, limits, cleanup scope, and human requests.
+2. In **Publish > Chatbot**, add the greeting above and set **Open by Default** to immediate. Use navy/gold styling if the plan supports it, and preview mobile. Ensure the agent has public access. Copy the **Embed Your Site** code from this panel; the website owner can share this public widget snippet for installation. Do not share passwords, account sessions, or private API keys.
+3. Add the generated embed code to the JB website's `jbaccountingsolutions/index.html` near the closing `</body>`. Keep the existing inquiry form as an additional contact method. Re-copy and re-embed the code if Jotform says widget configuration changes require it.
+4. In Jotform **Conversations Inbox**, review transcripts and practice **Take Over** on an active test chat. Set up and test a human request workflow: the AI should acknowledge the request, use an available notification or handoff action if supported, and allow Lourivel to join while the chat is active. When offline, ask for follow-up details and route to the existing inquiry form. Do not claim an automatic live transfer before verifying this behavior.
+5. Test the greeting on initial page load, questions about Basic/Standard/Premium, a three-question conversation, offline response, and the live handoff on a preview before publishing. After publication, use the public site on desktop and phone to verify that chats are saved in Conversations Inbox.
 
-Tidio's free plan currently includes 50 live-agent conversations per month, greeting Flows for up to 100 unique visitors per month, and a one-time allotment of 50 Lyro AI conversation threads. The proactive greeting spends Flow quota when it reaches a new visitor. Once the AI allotment is used, Lyro stops until a paid plan is added. Once the agent conversation cap is reached, Tidio says further incoming communications cannot be seen or answered until the cap resets or the plan is upgraded. Check the project's Usage and plan screen and current terms before upgrading.
+Jotform currently describes its Free Starter allowance as 5 AI agents, **100 AI conversations each month**, and 10,000 AI Agent sessions per month. Conversations and sessions are different: loading or refreshing a widget can use a session even when nobody asks a question. Review the account's Usage page as traffic grows. Facebook Messenger and WhatsApp are separate channel setup tasks; selecting or mentioning them does not connect accounts.
+
+Official setup references: [embed the AI Agent chatbot](https://www.jotform.com/help/how-to-use-agent-as-chatbot/), [review and take over chats](https://www.jotform.com/help/how-to-use-take-over-chat/), [free plan limits](https://www.jotform.com/answers/28510671-ai-agent-limits-and-pricing).
