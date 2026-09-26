@@ -51,7 +51,7 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
 </div>
 <div class="chat-panel" id="anthony-chat"><h3>Chat with Anthony</h3><p id="service-summary">Select a service above to begin.</p>
 <div class="agent-mount" id="jotform-agent" aria-label="Anthony AI chatbot"><!-- Jotform AI Agent embed code goes here after the published embed snippet is supplied. --></div>
-<p class="chat-status">Ask Anthony to connect you with a JB Team member at any point. Our team discusses packages and rates with you directly on WhatsApp. Please do not share passwords, bank logins, or card details in chat.</p></div></div></section>
+<p class="chat-status">Once you choose a service, Anthony will suggest WhatsApp so the JB Team can discuss the package and rate with you personally. Please do not share passwords, bank logins, or card details in chat.</p></div></div></section>
 <script>
 (function(){
   const buttons = document.querySelectorAll('.service-choice');
@@ -59,7 +59,7 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
   buttons.forEach(button => button.addEventListener('click', () => {
     buttons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
     const service = button.dataset.service;
-    summary.textContent = service === 'Other / Not Sure Yet' ? 'Selected service: Other / Not Sure Yet. Tell Anthony briefly what you need; he can suggest a discussion with the JB team on WhatsApp.' : 'Selected service: ' + service + '. Tell Anthony what you need. For packages and rates, he will suggest speaking with our team on WhatsApp.';
+    summary.textContent = service === 'Other / Not Sure Yet' ? 'Selected service: Other / Not Sure Yet. Tell Anthony briefly what you need; he can suggest a discussion with the JB team on WhatsApp.' : 'Selected service: ' + service + '. Anthony will suggest speaking with our team on WhatsApp for package details and rates.';
     document.getElementById('anthony-chat').scrollIntoView({behavior:'smooth',block:'start'});
   }));
 })();
