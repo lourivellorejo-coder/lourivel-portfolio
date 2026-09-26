@@ -36,7 +36,7 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
 <article class="project"><span class="tag">Full-Cycle Accounting Support</span><h3>Reconciliation & month-end workflow</h3><p>A recurring agency workflow covering bookkeeping, AP/AR, reconciliations, journal entries, accrual support, month-end activities, reporting and cleanup.</p><ul><li>Bank, credit-card and payment-processor reconciliations</li><li>Bill entry, invoice processing and payment tracking</li><li>Adjusting entries and accrual support</li><li>Catch-up bookkeeping and historical transaction review</li><li>P&amp;L and Balance Sheet reporting support</li><li>Clear documentation and client status updates</li></ul></article>
 </div><div class="markets"><span class="market">United States</span><span class="market">Australia</span><span class="market">New Zealand</span><span class="market">United Kingdom</span><span class="market">Canada</span><span class="market">International</span></div></div></section>
 
-<section class="inquiry" id="inquiry"><div class="wrap"><div class="kicker">Talk to Anthony</div><h2>Choose the support your business needs.</h2><p class="lead">Choose a service to start a conversation with Anthony, our AI Senior Bookkeeping Assistant. For a listed service, he will ask about the work, monthly transaction volume, and country before explaining relevant Basic, Standard, and Premium scopes. For Other / Not Sure Yet, he will ask for a short description and arrange an email follow-up with the JB team. Visitors can also request a human team member at any point.</p>
+<section class="inquiry" id="inquiry"><div class="wrap"><div class="kicker">Talk to Anthony</div><h2>Choose the support your business needs.</h2><p class="lead">Choose a service to start a conversation with Anthony, our AI Senior Bookkeeping Assistant. For a listed service, he will ask about the work, monthly transaction volume, and country before explaining relevant Basic, Standard, and Premium scopes. For Other / Not Sure Yet, he will ask for a short description and suggest a WhatsApp conversation with the JB team. Visitors can also ask to speak with a human team member at any point.</p>
 <div class="service-choices" role="group" aria-label="Choose a service">
   <button class="service-choice" type="button" data-service="QuickBooks Online Setup &amp; Subscription Assistance" aria-pressed="false">QuickBooks Online Setup &amp; Subscription Assistance</button>
   <button class="service-choice" type="button" data-service="Full-Cycle Bookkeeping" aria-pressed="false">Full-Cycle Bookkeeping</button>
@@ -51,7 +51,7 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
 </div>
 <div class="chat-panel" id="anthony-chat"><h3>Chat with Anthony</h3><p id="service-summary">Select a service above to begin.</p>
 <div class="agent-mount" id="jotform-agent" aria-label="Anthony AI chatbot"><!-- Jotform AI Agent embed code goes here after the published embed snippet is supplied. --></div>
-<p class="chat-status">Ask Anthony to connect you with a JB Team member at any point. He will collect your name, email, and concern so a person can follow up by email. Please do not share passwords, bank logins, or card details in chat.</p></div></div></section>
+<p class="chat-status">Ask Anthony to connect you with a JB Team member at any point. He will suggest the team's WhatsApp contact for a human conversation. Your selected service and package can still be sent to our team by email. Please do not share passwords, bank logins, or card details in chat.</p></div></div></section>
 <script>
 (function(){
   const buttons = document.querySelectorAll('.service-choice');
@@ -59,7 +59,7 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
   buttons.forEach(button => button.addEventListener('click', () => {
     buttons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
     const service = button.dataset.service;
-    summary.textContent = service === 'Other / Not Sure Yet' ? 'Selected service: Other / Not Sure Yet. Tell Anthony briefly what you need; he can arrange a custom discussion with the JB team by email.' : 'Selected service: ' + service + '. Anthony will ask about your scope, monthly transaction volume, and country before presenting relevant package options.';
+    summary.textContent = service === 'Other / Not Sure Yet' ? 'Selected service: Other / Not Sure Yet. Tell Anthony briefly what you need; he can suggest a custom discussion with the JB team on WhatsApp.' : 'Selected service: ' + service + '. Anthony will ask about your scope, monthly transaction volume, and country before presenting relevant package options.';
     document.getElementById('anthony-chat').scrollIntoView({behavior:'smooth',block:'start'});
   }));
 })();
