@@ -19,7 +19,7 @@ section{padding:76px 0}.kicker{font-size:12px;font-weight:900;letter-spacing:.17
 footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{display:flex;justify-content:space-between;gap:20px}.foot strong{color:#fff}
 @media(max-width:900px){.links{display:none}.hero-grid,.projects,.form-wrap{grid-template-columns:1fr}.form-info{position:static}.grid{grid-template-columns:1fr 1fr}.proof{margin-top:12px}}@media(max-width:620px){.grid,.team,.proof,.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.stats{grid-template-columns:1fr 1fr}.foot{flex-direction:column}section{padding:60px 0}.hero{padding-top:68px}.client-form,.form-info{padding:22px}}
 
-.package-builder{margin-top:30px;background:#fff;border:1px solid var(--line);border-radius:24px;padding:28px;box-shadow:0 10px 30px rgba(8,47,74,.06)}.selector-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.selector-grid .full{grid-column:1/-1}.package-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}.package-card{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:20px;padding:22px;background:#fff;min-height:310px;transition:.2s ease}.package-card:hover{transform:translateY(-3px);border-color:#a8d5ca;box-shadow:0 12px 30px rgba(8,47,74,.09)}.package-card.featured{border:2px solid var(--green);position:relative}.package-card.featured:before{content:"POPULAR";position:absolute;top:-12px;right:18px;background:var(--green);color:#fff;border-radius:999px;padding:4px 10px;font-size:10px;font-weight:900;letter-spacing:.08em}.package-name{font-size:13px;font-weight:900;letter-spacing:.12em;color:var(--green);text-transform:uppercase}.package-price{font-family:Georgia,serif;font-size:30px;line-height:1.1;color:var(--navy);margin:10px 0}.package-scope{color:var(--muted);font-size:14px;margin-bottom:16px}.package-points{padding-left:19px;color:#50616a;font-size:13px;flex:1}.choose-package{border:0;border-radius:999px;background:var(--gold);color:#143345;padding:13px 16px;font:inherit;font-weight:900;cursor:pointer;width:100%}.choose-package:hover,.choose-package:focus-visible{background:#e0b84f;outline:3px solid rgba(212,166,62,.2)}.package-note{margin:18px 0 0;color:var(--muted);font-size:12px;text-align:center}.help-panel{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:22px;border-radius:18px;padding:20px;background:var(--navy);color:#fff}.help-panel h3{margin:0 0 4px}.help-panel p{margin:0;color:#d5e5e9;font-size:13px}.help-panel .btn{flex:none}.agent-mount{min-height:0}.agent-mount:not(:empty){min-height:420px;margin-top:20px}@media(max-width:900px){.package-cards{grid-template-columns:1fr}.package-card{min-height:0}.help-panel{align-items:flex-start;flex-direction:column}}@media(max-width:620px){.selector-grid{grid-template-columns:1fr}.selector-grid .full{grid-column:auto}.package-builder{padding:20px}}
+.package-builder{margin-top:30px;background:#fff;border:1px solid var(--line);border-radius:24px;padding:28px;box-shadow:0 10px 30px rgba(8,47,74,.06)}.selector-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.selector-grid .full{grid-column:1/-1}.package-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}.package-card{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:20px;padding:22px;background:#fff;min-height:310px;transition:.2s ease}.package-card:hover{transform:translateY(-3px);border-color:#a8d5ca;box-shadow:0 12px 30px rgba(8,47,74,.09)}.package-card.featured{border:2px solid var(--green);position:relative}.package-card.featured:before{content:"STANDARD";position:absolute;top:-12px;right:18px;background:var(--green);color:#fff;border-radius:999px;padding:4px 10px;font-size:10px;font-weight:900;letter-spacing:.08em}.package-name{font-size:13px;font-weight:900;letter-spacing:.12em;color:var(--green);text-transform:uppercase}.package-price{font-family:Georgia,serif;font-size:30px;line-height:1.1;color:var(--navy);margin:10px 0}.package-scope{color:var(--muted);font-size:14px;margin-bottom:16px}.package-points{padding-left:19px;color:#50616a;font-size:13px;flex:1}.choose-package{border:0;border-radius:999px;background:var(--gold);color:#143345;padding:13px 16px;font:inherit;font-weight:900;cursor:pointer;width:100%}.choose-package:hover,.choose-package:focus-visible{background:#e0b84f;outline:3px solid rgba(212,166,62,.2)}.package-note{margin:18px 0 0;color:var(--muted);font-size:12px;text-align:center}.help-panel{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:22px;border-radius:18px;padding:20px;background:var(--navy);color:#fff}.help-panel h3{margin:0 0 4px}.help-panel p{margin:0;color:#d5e5e9;font-size:13px}.help-panel .btn{flex:none}.agent-mount{min-height:0}.agent-mount:not(:empty){min-height:420px;margin-top:20px}@media(max-width:900px){.package-cards{grid-template-columns:1fr}.package-card{min-height:0}.help-panel{align-items:flex-start;flex-direction:column}}@media(max-width:620px){.selector-grid{grid-template-columns:1fr}.selector-grid .full{grid-column:auto}.package-builder{padding:20px}}
 </style>
 </head>
 <body>
@@ -54,7 +54,8 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
 <option value="other">Other / Not Sure Yet</option>
 </select></div></div>
 <div class="package-cards" id="package-cards" aria-live="polite"></div>
-<p class="package-note">Prices shown are starting rates. Final scope and quotation will be confirmed by the JB Team based on transaction volume, number of accounts, condition of records, deadlines, and actual workload. Software subscriptions, tax filing, and payroll compliance filing are excluded unless included in the final proposal.</p>
+<p class="package-note" id="service-note"></p>
+<p class="package-note">Prices shown are starting rates. Final scope and quotation will be confirmed by the JB Team based on transaction volume, number of accounts, condition of records, deadlines, and actual workload. Software subscriptions, tax filing, and payroll compliance filing are excluded unless included in the final proposal. Each package covers one business entity. Complex inventory, multi-currency, integrations and property/job costing require a custom quote.</p><p class="package-note">After choosing a package, WhatsApp opens with your selection. Review the message and press Send to submit your inquiry. A WhatsApp account is required. The JB Team will reply when available.</p>
 <div class="help-panel"><div><h3>Not sure which service fits?</h3><p>Ask Anthony, our AI service guide. He can explain the services and suggest which category to review. Please do not share passwords, bank logins, or card details.</p></div><a class="btn primary" href="#inquiry" id="open-anthony">Ask Anthony</a></div>
 <div class="agent-mount" id="jotform-agent" aria-label="Anthony AI service guide"><!-- Anthony appears in the floating chat widget. --></div>
 </div></div></section>
@@ -63,46 +64,670 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
 <footer><div class="wrap foot"><div><strong>JB ACCOUNTING SOLUTIONS</strong><br>Accounting · Bookkeeping · Payroll · Financial Reporting</div><div>Accurate Records · Strong Controls · Reliable Financial Support</div></div></footer>
 <script>
 const packageData={
-ph:{
-qbo:{basic:["₱3,500","one-time","Initial QBO setup and essential accounts.",["Essential company setup","Core chart of accounts","Basic handover"]],standard:["₱6,500","one-time","Setup plus workflow guidance.",["Expanded setup","Workflow guidance","Review and handover"]],premium:["₱10,000","one-time","Broader setup, review, and handover.",["Broader configuration","Process review","Detailed handover"]]},
-fullcycle:{basic:["₱5,000","per month","Up to 100 transactions.",["Transaction recording","Regular bookkeeping review","Up to 100 transactions"]],standard:["₱9,000","per month","Up to 250 transactions.",["Expanded monthly bookkeeping","Regular review","Up to 250 transactions"]],premium:["₱16,000","per month","Up to 500 transactions.",["Higher-volume bookkeeping","Regular review","Up to 500 transactions"]]},
-cleanup:{basic:["₱2,500","per backlog month","Up to 100 transactions.",["Catch-up review","Corrections and categorization","Up to 100 transactions"]],standard:["₱4,500","per backlog month","Up to 250 transactions.",["Expanded catch-up work","Corrections and reconciliation","Up to 250 transactions"]],premium:["₱7,500","per backlog month","Up to 500 transactions.",["Higher-volume cleanup","Detailed reconciliation","Up to 500 transactions"]]},
-reconciliation:{basic:["₱2,500","per month","Up to 2 accounts.",["Bank or credit-card reconciliation","Difference review","Up to 2 accounts"]],standard:["₱4,500","per month","Up to 4 accounts.",["Expanded reconciliation","Difference review","Up to 4 accounts"]],premium:["₱7,500","per month","Up to 8 accounts.",["Multi-account reconciliation","Detailed discrepancy review","Up to 8 accounts"]]},
-apar:{basic:["₱3,500","per month","Up to 30 bills or invoices.",["AP/AR recording","Basic tracking","Up to 30 bills or invoices"]],standard:["₱6,500","per month","Up to 75 bills or invoices.",["Expanded AP/AR support","Tracking and follow-up","Up to 75 bills or invoices"]],premium:["₱11,000","per month","Up to 150 bills or invoices.",["Higher-volume AP/AR","Detailed tracking","Up to 150 bills or invoices"]]},
-payroll:{basic:["₱3,500","per month","Up to 5 workers.",["Payroll support","Record organization","Up to 5 workers"]],standard:["₱6,500","per month","Up to 15 workers.",["Expanded payroll support","Payroll reconciliation","Up to 15 workers"]],premium:["₱10,000","per month","Up to 30 workers.",["Higher-volume payroll support","Detailed reconciliation","Up to 30 workers"]]},
-monthend:{basic:["₱3,500","per month","Essential close checklist and review.",["Essential close checklist","Core account review","Status summary"]],standard:["₱6,500","per month","Close support with reconciliations and schedules.",["Account reconciliations","Supporting schedules","Close review"]],premium:["₱11,000","per month","Broader close support and management review.",["Broader close support","Management review","Detailed schedules"]]},
-reporting:{basic:["₱2,500","per month","Core Profit & Loss and Balance Sheet.",["Profit & Loss","Balance Sheet","Basic report review"]],standard:["₱4,500","per month","Core reports plus supporting schedules.",["Core financial reports","Supporting schedules","Report review"]],premium:["₱8,000","per month","Broader management reporting and commentary.",["Management reports","Supporting schedules","Commentary and review"]]},
-review:{basic:["₱1,500","one-time","Focused accounting review.",["Focused review","Key observations","Brief recommendations"]],standard:["₱3,000","one-time","Deeper review and recommendations.",["Deeper review","Recommendations","Priority actions"]],premium:["₱5,000","one-time","Broader review and action plan.",["Broader review","Detailed recommendations","Action plan"]]},
-other:{basic:["Custom quote","","Tell us what you need.",["Custom scope","Needs assessment","JB Team quotation"]],standard:["Custom quote","","The JB Team will recommend the right scope.",["Custom scope","Needs assessment","JB Team quotation"]],premium:["Custom quote","","The JB Team will recommend the right scope.",["Custom scope","Needs assessment","JB Team quotation"]]}
-},
-intl:{
-qbo:{basic:["$100","one-time","Initial QBO setup and essential accounts.",["Essential company setup","Core chart of accounts","Basic handover"]],standard:["$200","one-time","Setup plus workflow guidance.",["Expanded setup","Workflow guidance","Review and handover"]],premium:["$350","one-time","Broader setup, review, and handover.",["Broader configuration","Process review","Detailed handover"]]},
-fullcycle:{basic:["$150","per month","Up to 100 transactions.",["Transaction recording","Regular bookkeeping review","Up to 100 transactions"]],standard:["$300","per month","Up to 250 transactions.",["Expanded monthly bookkeeping","Regular review","Up to 250 transactions"]],premium:["$550","per month","Up to 500 transactions.",["Higher-volume bookkeeping","Regular review","Up to 500 transactions"]]},
-cleanup:{basic:["$75","per backlog month","Up to 100 transactions.",["Catch-up review","Corrections and categorization","Up to 100 transactions"]],standard:["$150","per backlog month","Up to 250 transactions.",["Expanded catch-up work","Corrections and reconciliation","Up to 250 transactions"]],premium:["$275","per backlog month","Up to 500 transactions.",["Higher-volume cleanup","Detailed reconciliation","Up to 500 transactions"]]},
-reconciliation:{basic:["$75","per month","Up to 2 accounts.",["Bank or credit-card reconciliation","Difference review","Up to 2 accounts"]],standard:["$150","per month","Up to 4 accounts.",["Expanded reconciliation","Difference review","Up to 4 accounts"]],premium:["$275","per month","Up to 8 accounts.",["Multi-account reconciliation","Detailed discrepancy review","Up to 8 accounts"]]},
-apar:{basic:["$100","per month","Up to 30 bills or invoices.",["AP/AR recording","Basic tracking","Up to 30 bills or invoices"]],standard:["$200","per month","Up to 75 bills or invoices.",["Expanded AP/AR support","Tracking and follow-up","Up to 75 bills or invoices"]],premium:["$375","per month","Up to 150 bills or invoices.",["Higher-volume AP/AR","Detailed tracking","Up to 150 bills or invoices"]]},
-payroll:{basic:["$100","per month","Up to 5 workers.",["Payroll support","Record organization","Up to 5 workers"]],standard:["$200","per month","Up to 15 workers.",["Expanded payroll support","Payroll reconciliation","Up to 15 workers"]],premium:["$350","per month","Up to 30 workers.",["Higher-volume payroll support","Detailed reconciliation","Up to 30 workers"]]},
-monthend:{basic:["$100","per month","Essential close checklist and review.",["Essential close checklist","Core account review","Status summary"]],standard:["$200","per month","Close support with reconciliations and schedules.",["Account reconciliations","Supporting schedules","Close review"]],premium:["$375","per month","Broader close support and management review.",["Broader close support","Management review","Detailed schedules"]]},
-reporting:{basic:["$75","per month","Core Profit & Loss and Balance Sheet.",["Profit & Loss","Balance Sheet","Basic report review"]],standard:["$150","per month","Core reports plus supporting schedules.",["Core financial reports","Supporting schedules","Report review"]],premium:["$275","per month","Broader management reporting and commentary.",["Management reports","Supporting schedules","Commentary and review"]]},
-review:{basic:["$50","one-time","Focused accounting review.",["Focused review","Key observations","Brief recommendations"]],standard:["$100","one-time","Deeper review and recommendations.",["Deeper review","Recommendations","Priority actions"]],premium:["$175","one-time","Broader review and action plan.",["Broader review","Detailed recommendations","Action plan"]]},
-other:{basic:["Custom quote","","Tell us what you need.",["Custom scope","Needs assessment","JB Team quotation"]],standard:["Custom quote","","The JB Team will recommend the right scope.",["Custom scope","Needs assessment","JB Team quotation"]],premium:["Custom quote","","The JB Team will recommend the right scope.",["Custom scope","Needs assessment","JB Team quotation"]]}
-}};
+  "ph": {
+    "qbo": {
+      "basic": [
+        "₱2,500",
+        "one-time setup",
+        "Essential company setup.",
+        [
+          "Company settings and chart of accounts",
+          "Subscription selection guidance",
+          "Subscription fees excluded"
+        ]
+      ],
+      "standard": [
+        "₱4,000",
+        "one-time setup",
+        "Setup with up to 2 bank feeds.",
+        [
+          "Everything in Basic",
+          "Up to 25 customer/vendor records",
+          "Bank-feed connection assistance"
+        ]
+      ],
+      "premium": [
+        "₱6,000",
+        "one-time setup",
+        "Setup with up to 4 bank feeds.",
+        [
+          "Up to 50 customer/vendor records",
+          "Documented opening balances",
+          "30-minute handover"
+        ]
+      ]
+    },
+    "fullcycle": {
+      "basic": [
+        "₱2,500",
+        "per month",
+        "Up to 100 transactions and 2 bank/card accounts.",
+        [
+          "Transaction recording and categorization",
+          "Bank/card reconciliation",
+          "Profit & Loss and Balance Sheet"
+        ]
+      ],
+      "standard": [
+        "₱4,500",
+        "per month",
+        "Up to 250 transactions and 3 bank/card accounts.",
+        [
+          "Transaction recording and categorization",
+          "Bank/card reconciliation",
+          "Profit & Loss and Balance Sheet"
+        ]
+      ],
+      "premium": [
+        "₱7,500",
+        "per month",
+        "Up to 500 transactions and 5 bank/card accounts.",
+        [
+          "Transaction recording and categorization",
+          "Bank/card reconciliation",
+          "Profit & Loss and Balance Sheet"
+        ]
+      ]
+    },
+    "cleanup": {
+      "basic": [
+        "₱2,500",
+        "per backlog month",
+        "Up to 100 transactions and 2 accounts.",
+        [
+          "Catch-up recording and categorization",
+          "Duplicate and error review",
+          "Reconciliation and issue summary"
+        ]
+      ],
+      "standard": [
+        "₱4,500",
+        "per backlog month",
+        "Up to 250 transactions and 3 accounts.",
+        [
+          "Catch-up recording and categorization",
+          "Duplicate and error review",
+          "Reconciliation and issue summary"
+        ]
+      ],
+      "premium": [
+        "₱7,500",
+        "per backlog month",
+        "Up to 500 transactions and 5 accounts.",
+        [
+          "Catch-up recording and categorization",
+          "Duplicate and error review",
+          "Reconciliation and issue summary"
+        ]
+      ]
+    },
+    "reconciliation": {
+      "basic": [
+        "₱1,500",
+        "per statement month",
+        "1 account, up to 100 statement entries.",
+        [
+          "Match statement entries to existing books",
+          "Identify differences",
+          "Reconciliation and unresolved-item report"
+        ]
+      ],
+      "standard": [
+        "₱2,500",
+        "per statement month",
+        "Up to 2 accounts, 250 total entries.",
+        [
+          "Match statement entries to existing books",
+          "Identify differences",
+          "Reconciliation and unresolved-item report"
+        ]
+      ],
+      "premium": [
+        "₱4,000",
+        "per statement month",
+        "Up to 4 accounts, 500 total entries.",
+        [
+          "Match statement entries to existing books",
+          "Identify differences",
+          "Reconciliation and unresolved-item report"
+        ]
+      ]
+    },
+    "apar": {
+      "basic": [
+        "₱1,500",
+        "per document batch",
+        "Up to 25 bills or invoices; AP or AR.",
+        [
+          "Record bills or invoices",
+          "Organize supporting documents",
+          "Basic payment-status tracking"
+        ]
+      ],
+      "standard": [
+        "₱2,500",
+        "per document batch",
+        "Up to 50 combined bills/invoices; AP and AR.",
+        [
+          "Bill and invoice recording",
+          "Payment-status tracking",
+          "Aging report"
+        ]
+      ],
+      "premium": [
+        "₱4,000",
+        "per document batch",
+        "Up to 100 combined bills/invoices; AP and AR.",
+        [
+          "Bill and invoice recording",
+          "Aging report",
+          "Discrepancy summary"
+        ]
+      ]
+    },
+    "payroll": {
+      "basic": [
+        "₱1,500",
+        "per payroll run",
+        "Up to 10 employees.",
+        [
+          "Payroll calculations from approved attendance",
+          "Payslip preparation",
+          "One pay period; existing payroll setup"
+        ]
+      ],
+      "standard": [
+        "₱3,000",
+        "per payroll run",
+        "Up to 25 employees.",
+        [
+          "Payroll calculations and payslips",
+          "Payroll summary",
+          "One pay period; existing payroll setup"
+        ]
+      ],
+      "premium": [
+        "₱5,000",
+        "per payroll run",
+        "Up to 50 employees.",
+        [
+          "Payroll calculations and payslips",
+          "Payroll summary and journal",
+          "Payroll reconciliation for one pay period"
+        ]
+      ]
+    },
+    "monthend": {
+      "basic": [
+        "₱2,500",
+        "per monthly close",
+        "Up to 3 balance-sheet schedules and 5 adjusting entries.",
+        [
+          "Close checklist",
+          "Account review and approved adjustments",
+          "Books must already be updated"
+        ]
+      ],
+      "standard": [
+        "₱4,000",
+        "per monthly close",
+        "Up to 5 schedules and 10 adjusting entries.",
+        [
+          "Close checklist",
+          "Account review and approved adjustments",
+          "Books must already be updated"
+        ]
+      ],
+      "premium": [
+        "₱6,000",
+        "per monthly close",
+        "Up to 8 schedules and 20 adjusting entries.",
+        [
+          "Account review and approved adjustments",
+          "Variance summary",
+          "Books must already be updated"
+        ]
+      ]
+    },
+    "reporting": {
+      "basic": [
+        "₱1,500",
+        "per monthly reporting period",
+        "Profit & Loss and Balance Sheet.",
+        [
+          "Prepared from updated books",
+          "One business entity",
+          "Bookkeeping and cleanup excluded"
+        ]
+      ],
+      "standard": [
+        "₱2,500",
+        "per monthly reporting period",
+        "Profit & Loss, Balance Sheet and Cash Flow.",
+        [
+          "Prepared from updated books",
+          "One business entity",
+          "Bookkeeping and cleanup excluded"
+        ]
+      ],
+      "premium": [
+        "₱4,000",
+        "per monthly reporting period",
+        "Core reports with prior-period comparison.",
+        [
+          "Profit & Loss, Balance Sheet and Cash Flow",
+          "Brief management commentary",
+          "Prepared from updated books"
+        ]
+      ]
+    },
+    "review": {
+      "basic": [
+        "₱1,500",
+        "per session / review",
+        "30-minute consultation on one topic.",
+        [
+          "Discuss your accounting question",
+          "Practical next steps",
+          "Implementation work quoted separately"
+        ]
+      ],
+      "standard": [
+        "₱2,500",
+        "per session / review",
+        "60-minute consultation with action notes.",
+        [
+          "Focused accounting discussion",
+          "Written action notes",
+          "Implementation work quoted separately"
+        ]
+      ],
+      "premium": [
+        "₱4,000",
+        "per session / review",
+        "Review of up to 3 reports plus a 60-minute call.",
+        [
+          "Written findings",
+          "Recommended actions",
+          "No audit or assurance opinion"
+        ]
+      ]
+    },
+    "other": {
+      "basic": [
+        "Custom quote",
+        "",
+        "Tell us about your business needs.",
+        [
+          "Initial needs assessment",
+          "Tailored scope",
+          "Quotation before work begins"
+        ]
+      ],
+      "standard": [
+        "Custom quote",
+        "",
+        "A tailored service for your business.",
+        [
+          "Initial needs assessment",
+          "Tailored scope",
+          "Quotation before work begins"
+        ]
+      ],
+      "premium": [
+        "Custom quote",
+        "",
+        "A tailored service for your business.",
+        [
+          "Initial needs assessment",
+          "Tailored scope",
+          "Quotation before work begins"
+        ]
+      ]
+    }
+  },
+  "intl": {
+    "qbo": {
+      "basic": [
+        "$30",
+        "one-time setup",
+        "Essential company setup.",
+        [
+          "Company settings and chart of accounts",
+          "Subscription selection guidance",
+          "Subscription fees excluded"
+        ]
+      ],
+      "standard": [
+        "$60",
+        "one-time setup",
+        "Setup with up to 2 bank feeds.",
+        [
+          "Everything in Basic",
+          "Up to 25 customer/vendor records",
+          "Bank-feed connection assistance"
+        ]
+      ],
+      "premium": [
+        "$100",
+        "one-time setup",
+        "Setup with up to 4 bank feeds.",
+        [
+          "Up to 50 customer/vendor records",
+          "Documented opening balances",
+          "30-minute handover"
+        ]
+      ]
+    },
+    "fullcycle": {
+      "basic": [
+        "$50",
+        "per month",
+        "Up to 100 transactions and 2 bank/card accounts.",
+        [
+          "Transaction recording and categorization",
+          "Bank/card reconciliation",
+          "Profit & Loss and Balance Sheet"
+        ]
+      ],
+      "standard": [
+        "$100",
+        "per month",
+        "Up to 250 transactions and 3 bank/card accounts.",
+        [
+          "Transaction recording and categorization",
+          "Bank/card reconciliation",
+          "Profit & Loss and Balance Sheet"
+        ]
+      ],
+      "premium": [
+        "$180",
+        "per month",
+        "Up to 500 transactions and 5 bank/card accounts.",
+        [
+          "Transaction recording and categorization",
+          "Bank/card reconciliation",
+          "Profit & Loss and Balance Sheet"
+        ]
+      ]
+    },
+    "cleanup": {
+      "basic": [
+        "$30",
+        "per backlog month",
+        "Up to 100 transactions and 2 accounts.",
+        [
+          "Catch-up recording and categorization",
+          "Duplicate and error review",
+          "Reconciliation and issue summary"
+        ]
+      ],
+      "standard": [
+        "$75",
+        "per backlog month",
+        "Up to 250 transactions and 3 accounts.",
+        [
+          "Catch-up recording and categorization",
+          "Duplicate and error review",
+          "Reconciliation and issue summary"
+        ]
+      ],
+      "premium": [
+        "$150",
+        "per backlog month",
+        "Up to 500 transactions and 5 accounts.",
+        [
+          "Catch-up recording and categorization",
+          "Duplicate and error review",
+          "Reconciliation and issue summary"
+        ]
+      ]
+    },
+    "reconciliation": {
+      "basic": [
+        "$20",
+        "per statement month",
+        "1 account, up to 100 statement entries.",
+        [
+          "Match statement entries to existing books",
+          "Identify differences",
+          "Reconciliation and unresolved-item report"
+        ]
+      ],
+      "standard": [
+        "$40",
+        "per statement month",
+        "Up to 2 accounts, 250 total entries.",
+        [
+          "Match statement entries to existing books",
+          "Identify differences",
+          "Reconciliation and unresolved-item report"
+        ]
+      ],
+      "premium": [
+        "$75",
+        "per statement month",
+        "Up to 4 accounts, 500 total entries.",
+        [
+          "Match statement entries to existing books",
+          "Identify differences",
+          "Reconciliation and unresolved-item report"
+        ]
+      ]
+    },
+    "apar": {
+      "basic": [
+        "$20",
+        "per document batch",
+        "Up to 25 bills or invoices; AP or AR.",
+        [
+          "Record bills or invoices",
+          "Organize supporting documents",
+          "Basic payment-status tracking"
+        ]
+      ],
+      "standard": [
+        "$40",
+        "per document batch",
+        "Up to 50 combined bills/invoices; AP and AR.",
+        [
+          "Bill and invoice recording",
+          "Payment-status tracking",
+          "Aging report"
+        ]
+      ],
+      "premium": [
+        "$80",
+        "per document batch",
+        "Up to 100 combined bills/invoices; AP and AR.",
+        [
+          "Bill and invoice recording",
+          "Aging report",
+          "Discrepancy summary"
+        ]
+      ]
+    },
+    "payroll": {
+      "basic": [
+        "$30",
+        "per payroll run",
+        "Up to 10 employees.",
+        [
+          "Payroll calculations from approved attendance",
+          "Payslip preparation",
+          "One pay period; existing payroll setup"
+        ]
+      ],
+      "standard": [
+        "$75",
+        "per payroll run",
+        "Up to 25 employees.",
+        [
+          "Payroll calculations and payslips",
+          "Payroll summary",
+          "One pay period; existing payroll setup"
+        ]
+      ],
+      "premium": [
+        "$150",
+        "per payroll run",
+        "Up to 50 employees.",
+        [
+          "Payroll calculations and payslips",
+          "Payroll summary and journal",
+          "Payroll reconciliation for one pay period"
+        ]
+      ]
+    },
+    "monthend": {
+      "basic": [
+        "$50",
+        "per monthly close",
+        "Up to 3 balance-sheet schedules and 5 adjusting entries.",
+        [
+          "Close checklist",
+          "Account review and approved adjustments",
+          "Books must already be updated"
+        ]
+      ],
+      "standard": [
+        "$100",
+        "per monthly close",
+        "Up to 5 schedules and 10 adjusting entries.",
+        [
+          "Close checklist",
+          "Account review and approved adjustments",
+          "Books must already be updated"
+        ]
+      ],
+      "premium": [
+        "$180",
+        "per monthly close",
+        "Up to 8 schedules and 20 adjusting entries.",
+        [
+          "Account review and approved adjustments",
+          "Variance summary",
+          "Books must already be updated"
+        ]
+      ]
+    },
+    "reporting": {
+      "basic": [
+        "$20",
+        "per monthly reporting period",
+        "Profit & Loss and Balance Sheet.",
+        [
+          "Prepared from updated books",
+          "One business entity",
+          "Bookkeeping and cleanup excluded"
+        ]
+      ],
+      "standard": [
+        "$45",
+        "per monthly reporting period",
+        "Profit & Loss, Balance Sheet and Cash Flow.",
+        [
+          "Prepared from updated books",
+          "One business entity",
+          "Bookkeeping and cleanup excluded"
+        ]
+      ],
+      "premium": [
+        "$75",
+        "per monthly reporting period",
+        "Core reports with prior-period comparison.",
+        [
+          "Profit & Loss, Balance Sheet and Cash Flow",
+          "Brief management commentary",
+          "Prepared from updated books"
+        ]
+      ]
+    },
+    "review": {
+      "basic": [
+        "$20",
+        "per session / review",
+        "30-minute consultation on one topic.",
+        [
+          "Discuss your accounting question",
+          "Practical next steps",
+          "Implementation work quoted separately"
+        ]
+      ],
+      "standard": [
+        "$40",
+        "per session / review",
+        "60-minute consultation with action notes.",
+        [
+          "Focused accounting discussion",
+          "Written action notes",
+          "Implementation work quoted separately"
+        ]
+      ],
+      "premium": [
+        "$75",
+        "per session / review",
+        "Review of up to 3 reports plus a 60-minute call.",
+        [
+          "Written findings",
+          "Recommended actions",
+          "No audit or assurance opinion"
+        ]
+      ]
+    },
+    "other": {
+      "basic": [
+        "Custom quote",
+        "",
+        "Tell us about your business needs.",
+        [
+          "Initial needs assessment",
+          "Tailored scope",
+          "Quotation before work begins"
+        ]
+      ],
+      "standard": [
+        "Custom quote",
+        "",
+        "A tailored service for your business.",
+        [
+          "Initial needs assessment",
+          "Tailored scope",
+          "Quotation before work begins"
+        ]
+      ],
+      "premium": [
+        "Custom quote",
+        "",
+        "A tailored service for your business.",
+        [
+          "Initial needs assessment",
+          "Tailored scope",
+          "Quotation before work begins"
+        ]
+      ]
+    }
+  }
+};
 const market=document.getElementById("market"),country=document.getElementById("country"),service=document.getElementById("service"),cards=document.getElementById("package-cards");
 function renderPackages(){
-const tiers=["basic","standard","premium"];
+const notes={qbo:"Setup is a one-time service; ongoing support and historical migration are quoted separately.",fullcycle:"Basic reporting and reconciliation are included. Do not purchase those services again for the same work. Historical cleanup and payroll are separate.",cleanup:"Price applies to each backlog month within the package limits. Major reconstruction is quoted separately.",reconciliation:"Limits apply to total entries across the included accounts for one statement month. Unrecorded transactions and major cleanup are quoted separately.",apar:"One batch means the stated total of bills and invoices, not an unlimited monthly service. Payment execution and debt collection are excluded.",payroll:"One payroll run covers one pay period. Two runs require two run fees. Approved attendance and an existing setup are required. Setup, filings and off-cycle corrections are quoted separately.",monthend:"Existing books must be up to date. Historical cleanup and audit or certification are excluded.",reporting:"Covers one month of reporting from updated books. Annual, consolidated and certified statements require a separate quote.",review:"Consultation and internal accounting review only; this is not an audit, assurance engagement or certification.",other:"No package commitment is required. Tell us what you need and the JB Team will prepare a custom quote."};
+document.getElementById("service-note").textContent=notes[service.value];
+const tiers=service.value==="other"?["basic"]:["basic","standard","premium"];
 cards.innerHTML=tiers.map((tier,index)=>{
 const item=packageData[market.value][service.value][tier];
-return '<article class="package-card '+(tier==="standard"?'featured':'')+'"><div class="package-name">'+tier+'</div><div class="package-price">'+item[0]+' <small style="font-family:Inter;font-size:12px;color:#62717a">'+item[1]+'</small></div><div class="package-scope">'+item[2]+'</div><ul class="package-points">'+item[3].map(p=>"<li>"+p+"</li>").join("")+'</ul><button class="choose-package" type="button" data-tier="'+tier+'">Choose '+tier.charAt(0).toUpperCase()+tier.slice(1)+'</button></article>';
+return '<article class="package-card '+(tier==="standard"?'featured':'')+'"><div class="package-name">'+(service.value==='other'?'Custom Service':tier)+'</div><div class="package-price">'+item[0]+' <small style="font-family:Inter;font-size:12px;color:#62717a">'+item[1]+'</small></div><div class="package-scope">'+item[2]+'</div><ul class="package-points">'+item[3].map(p=>"<li>"+p+"</li>").join("")+'</ul><button class="choose-package" type="button" data-tier="'+tier+'">'+(service.value==='other'?'Request a quote':'Choose '+tier.charAt(0).toUpperCase()+tier.slice(1))+'</button></article>';
 }).join("");
 cards.querySelectorAll(".choose-package").forEach(button=>button.addEventListener("click",()=>continueToWhatsApp(button.dataset.tier)));
 }
 function continueToWhatsApp(tier){
 if(market.value==="intl"&&!country.value.trim()){country.focus();country.setCustomValidity("Please enter the business country.");country.reportValidity();return}
+if(market.value==="intl"&&/^(philippines|ph|philippine|pilipinas)$/i.test(country.value.trim())){market.value="ph";country.value="Philippines";country.readOnly=true;renderPackages();alert("Philippine business selected. Please review the PHP packages and choose again.");return}
 country.setCustomValidity("");
 const item=packageData[market.value][service.value][tier];
 const serviceName=service.options[service.selectedIndex].text;
-const tierName=tier.charAt(0).toUpperCase()+tier.slice(1);
-const message=["Hi JB Team! I would like to inquire about a service package.","","Country: "+country.value.trim(),"Service: "+serviceName,"Package: "+tierName,"Displayed starting rate: "+item[0]+(item[1]?" "+item[1]:""),"Displayed scope: "+item[2],"","Please help me confirm the final scope and quotation."].join("\n");
+const tierName=service.value==="other"?"Custom quote":tier.charAt(0).toUpperCase()+tier.slice(1);
+const message=["Hi JB Team! I would like to inquire about a service package.","","Country: "+country.value.trim(),"Service: "+serviceName,"Package: "+tierName,"Displayed starting rate: "+item[0]+(item[1]?" "+item[1]:""),"Displayed scope: "+item[2],"Includes: "+item[3].join("; "),"Service terms: "+document.getElementById("service-note").textContent,"","Please help me confirm the final scope and quotation."].join("\n");
 window.open("https://wa.me/639281502525?text="+encodeURIComponent(message),"_blank","noopener");
 }
 market.addEventListener("change",()=>{if(market.value==="ph"){country.value="Philippines";country.readOnly=true}else{country.value="";country.readOnly=false;country.placeholder="Enter business country"}renderPackages()});
