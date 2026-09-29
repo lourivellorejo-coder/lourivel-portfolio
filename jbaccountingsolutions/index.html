@@ -54,10 +54,10 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
 <option value="review">Accounting Review / Consultation</option>
 <option value="other">Other / Not Sure Yet</option>
 </select></div>
-<div class="field full"><label for="contact-channel">Where would you like to contact us?</label><select id="contact-channel"><option value="messenger">Messenger — Lourivel Lorejo</option><option value="email">Email — ljvirtualbookkeepingservices@gmail.com</option><option value="linkedin">LinkedIn — Lourivel Lorejo</option><option value="whatsapp">WhatsApp — +63 928 150 2525</option></select><small>Choose a contact option, then click your preferred package to open it.</small></div></div>
+<div class="field full"><label for="contact-channel">Where would you like to contact us?</label><select id="contact-channel"><option value="messenger">Messenger — Lourivel Lorejo</option><option value="email">Email (Gmail) — ljvirtualbookkeepingservices@gmail.com</option><option value="linkedin">LinkedIn — Lourivel Lorejo</option><option value="whatsapp">WhatsApp — +63 928 150 2525</option></select><small>Choose a contact option, then click your preferred package to open it.</small></div></div>
 <div class="package-cards" id="package-cards" aria-live="polite"></div>
 <p class="package-note" id="service-note"></p>
-<p class="package-note">Prices shown are starting rates. Final scope and quotation will be confirmed by the JB Team based on transaction volume, number of accounts, condition of records, deadlines, and actual workload. Software subscriptions, tax filing, and payroll compliance filing are excluded unless included in the final proposal. Each package covers one business entity. Complex inventory, multi-currency, integrations and property/job costing require a custom quote.</p><p class="package-note">Your package button opens your selected contact option. WhatsApp and email include a draft inquiry; for Messenger and LinkedIn, copy the inquiry below and paste it into your message. You may need to sign in. Clicking a package does not send a message; press Send in the selected app. The JB Team will reply when available.</p>
+<p class="package-note">Prices shown are starting rates. Final scope and quotation will be confirmed by the JB Team based on transaction volume, number of accounts, condition of records, deadlines, and actual workload. Software subscriptions, tax filing, and payroll compliance filing are excluded unless included in the final proposal. Each package covers one business entity. Complex inventory, multi-currency, integrations and property/job costing require a custom quote.</p><p class="package-note">Your package button opens your selected contact option. WhatsApp and Gmail include a draft inquiry; for Messenger and LinkedIn, copy the inquiry below and paste it into your message. Email opens Gmail in your browser; sign in to your own account to send. You may need to sign in for other channels too. Clicking a package does not send a message; press Send in the selected app. The JB Team will reply when available.</p>
 <div id="inquiry-preview" class="field" hidden style="margin-top:22px"><label for="inquiry-message">Your selected package inquiry</label><textarea id="inquiry-message" readonly rows="8"></textarea><button class="choose-package" type="button" id="copy-inquiry">Copy inquiry</button><p id="contact-status" role="status"></p><a id="reopen-contact" class="btn primary" target="_blank" rel="noopener noreferrer">Open selected contact</a></div>
 <div class="help-panel"><div><h3>Not sure which service fits?</h3><p>Ask Anthony, our AI service guide. He can explain the services and suggest which category to review. Please do not share passwords, bank logins, or card details.</p></div><a class="btn primary" href="#inquiry" id="open-anthony">Ask Anthony</a></div>
 <div class="agent-mount" id="jotform-agent" aria-label="Anthony AI service guide"><!-- Anthony appears in the floating chat widget. --></div>
@@ -735,7 +735,7 @@ const channel=document.getElementById("contact-channel").value;
 const destinations={
 messenger:"https://www.facebook.com/profile.php?id=61594591415023",
 linkedin:"https://www.linkedin.com/in/lourivel-lorejo-b4186b205/",
-email:"mailto:ljvirtualbookkeepingservices@gmail.com?subject="+encodeURIComponent("JB inquiry — "+serviceName+" — "+tierName)+"&body="+encodeURIComponent(message),
+email:"https://mail.google.com/mail/?view=cm&fs=1&to=ljvirtualbookkeepingservices%40gmail.com&su="+encodeURIComponent("JB inquiry — "+serviceName+" — "+tierName)+"&body="+encodeURIComponent(message),
 whatsapp:"https://wa.me/639281502525?text="+encodeURIComponent(message)
 };
 const destination=destinations[channel];
@@ -743,7 +743,7 @@ document.getElementById("inquiry-message").value=message;
 document.getElementById("inquiry-preview").hidden=false;
 document.getElementById("reopen-contact").href=destination;
 document.getElementById("contact-status").textContent=(channel==="messenger"||channel==="linkedin")?"Copy this inquiry and paste it into your message. If messaging is unavailable, choose email or WhatsApp.":"Review the draft in your app and press Send. If no app opens, use the contact link below or copy your inquiry.";
-if(channel==="email"){window.location.href=destination}else{window.open(destination,"_blank","noopener")}
+window.open(destination,"_blank","noopener");
 }
 document.getElementById("copy-inquiry").addEventListener("click",async()=>{
 const messageBox=document.getElementById("inquiry-message");
