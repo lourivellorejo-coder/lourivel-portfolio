@@ -54,7 +54,7 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
 <option value="review">Accounting Review / Consultation</option>
 <option value="other">Other / Not Sure Yet</option>
 </select></div>
-<div class="field full"><label for="contact-channel">Where would you like to contact us?</label><select id="contact-channel"><option value="messenger">Messenger — Bellelors</option><option value="email">Email — lourivellorejo@gmail.com</option><option value="linkedin">LinkedIn — Lourivel Lorejo</option><option value="whatsapp">WhatsApp — +63 928 150 2525</option></select><small>Choose a contact option, then click your preferred package to open it.</small></div></div>
+<div class="field full"><label for="contact-channel">Where would you like to contact us?</label><select id="contact-channel"><option value="messenger">Messenger — Bellelors</option><option value="email">Email — ljvirtualbookkeepingservices@gmail.com</option><option value="linkedin">LinkedIn — Lourivel Lorejo</option><option value="whatsapp">WhatsApp — +63 928 150 2525</option></select><small>Choose a contact option, then click your preferred package to open it.</small></div></div>
 <div class="package-cards" id="package-cards" aria-live="polite"></div>
 <p class="package-note" id="service-note"></p>
 <p class="package-note">Prices shown are starting rates. Final scope and quotation will be confirmed by the JB Team based on transaction volume, number of accounts, condition of records, deadlines, and actual workload. Software subscriptions, tax filing, and payroll compliance filing are excluded unless included in the final proposal. Each package covers one business entity. Complex inventory, multi-currency, integrations and property/job costing require a custom quote.</p><p class="package-note">Your package button opens your selected contact option. WhatsApp and email include a draft inquiry; for Messenger and LinkedIn, copy the inquiry below and paste it into your message. You may need to sign in. Clicking a package does not send a message; press Send in the selected app. The JB Team will reply when available.</p>
@@ -735,7 +735,7 @@ const channel=document.getElementById("contact-channel").value;
 const destinations={
 messenger:"https://www.facebook.com/profile.php?id=61594591415023",
 linkedin:"https://www.linkedin.com/in/lourivel-lorejo-b4186b205/",
-email:"mailto:lourivellorejo@gmail.com?subject="+encodeURIComponent("JB inquiry — "+serviceName+" — "+tierName)+"&body="+encodeURIComponent(message),
+email:"mailto:ljvirtualbookkeepingservices@gmail.com?subject="+encodeURIComponent("JB inquiry — "+serviceName+" — "+tierName)+"&body="+encodeURIComponent(message),
 whatsapp:"https://wa.me/639281502525?text="+encodeURIComponent(message)
 };
 const destination=destinations[channel];
