@@ -457,7 +457,7 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
     const bubbleButton = document.querySelector('#anthony-bubble');
     const logs = document.querySelector('#anthony-logs');
     const actions = document.querySelector('#anthony-actions');
-    const chatState = { market: '', country: '', need: '' };
+    const chatState = { market: '', country: '', need: '', software: '' };
     function chatBubble(kind, message) {
       const div = document.createElement('div');
       div.className = `anthony-message ${kind}`;
@@ -475,13 +475,13 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
     }
     function resetChat() {
       logs.replaceChildren(); actions.replaceChildren();
-      chatState.market = ''; chatState.country = ''; chatState.need = '';
-      chatBubble('bot', 'Mabuhay! Ako si Anthony, ang inyong package guide. Saan nakabase ang iyong business operations?');
+      chatState.market = ''; chatState.country = ''; chatState.need = ''; chatState.software = '';
+      chatBubble('bot', 'Hello! I am Anthony, your JB Accounting Solutions package guide. I can help you find a service and package that fits your business. Where is your business based?');
       chatChoice('Philippines · PHP Market 🇵🇭', () => { chatState.market = 'php'; chatState.country = 'Philippines'; askNeed(); });
       chatChoice('International · USD Market 🌍', () => { chatState.market = 'usd'; askCountry(); });
     }
     function askCountry() {
-      chatBubble('bot', 'Saang bansa nakabase ang iyong business?');
+      chatBubble('bot', 'Which country is your business based in?');
       actions.replaceChildren();
       const input = document.createElement('input');
       input.type = 'text'; input.maxLength = 80; input.placeholder = 'Business country'; input.setAttribute('aria-label', 'Business country');
@@ -492,7 +492,7 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
         if (!value) { input.setCustomValidity('Please enter the country.'); input.reportValidity(); return; }
         if (/\b(philippines|pilipinas)\b/i.test(value) || /^ph$/i.test(value)) {
           chatState.market = 'php'; chatState.country = 'Philippines';
-          chatBubble('user', 'Philippines'); chatBubble('bot', 'Philippine rates ang gagamitin natin.');
+          chatBubble('user', 'Philippines'); chatBubble('bot', 'I will use the Philippine rates for your business.');
         } else { chatState.country = value; chatBubble('user', value); }
         askNeed();
       };
@@ -502,44 +502,77 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
       actions.append(input, next); input.focus();
     }
     function askNeed() {
-      chatBubble('bot', 'Anong aspeto ng inyong pananalapi o libro ang kailangan ng tulong ngayon?');
+      chatBubble('bot', 'Which service would help your business most? Select one and I will show you the package options.');
       actions.replaceChildren();
       [
-        ['May backlogs / magulo ang records', 'cleanup'],
-        ['Kailangan ng regular bookkeeping buwan-buwan', 'fullcycle'],
-        ['Gusto lang magpaturo / QuickBooks review', 'consultation'],
-        ['Iba pang tulong / Hindi sigurado', 'other']
-      ].forEach(([label, key]) => chatChoice(label, () => showChatPitch(key)));
+        ['QuickBooks Online setup and subscription help', 'qbo'],
+        ['Monthly full-cycle bookkeeping', 'fullcycle'],
+        ['Cleanup / catch-up of backlogs', 'cleanup'],
+        ['Bank and credit card reconciliation', 'reconciliation'],
+        ['Accounts payable / accounts receivable', 'apar'],
+        ['Payroll support', 'payroll'],
+        ['Month-end close support', 'monthend'],
+        ['Financial reporting', 'reporting'],
+        ['Accounting review / QuickBooks training', 'consultation'],
+        ['Sage / MYOB / NetSuite / SAP / Oracle assistance', 'software'],
+        ['Other help / Not sure yet', 'other']
+      ].forEach(([label, key]) => chatChoice(label, () => key === 'software' ? askSoftware() : showChatPitch(key)));
     }
-    function showChatPitch(key) {
-      chatState.need = key;
+    function askSoftware() {
+      chatBubble('bot', 'Which software does your business use?');
       actions.replaceChildren();
-      if (key === 'other') chatBubble('bot', 'Mas bagay ang custom quote. Piliin ang View Packages para makita ang direct contact options, o mag-iwan ng mensahe sa WhatsApp.');
-      else {
+      ['Sage', 'MYOB', 'NetSuite', 'SAP', 'Oracle'].forEach(name => chatChoice(name, () => showChatPitch('software', name)));
+    }
+    function showChatPitch(key, software = '') {
+      chatState.need = key;
+      chatState.software = software;
+      actions.replaceChildren();
+      if (key === 'software') {
+        chatBubble('bot', `Thanks for telling me you use ${software}. Tell the JB Team what you need done in this system. The team will review whether it can support the work and confirm a custom scope and quote. Select View Packages for contact options, or leave a WhatsApp message.`);
+      } else if (key === 'other') {
+        chatBubble('bot', 'Every business is different. For a tailored recommendation, select View Packages to see the direct contact options or leave the JB Team a message on WhatsApp.');
+      } else {
+        const benefits = {
+          consultation: 'Get practical guidance on your accounting workflow and QuickBooks so you can move forward with more clarity.',
+          qbo: 'Set up QuickBooks around your business needs, with subscription guidance and a clear handoff.',
+          fullcycle: 'Keep monthly records organized through categorization, reconciliation, and reporting options.',
+          cleanup: 'Work through overdue records and discrepancies with a defined cleanup scope.',
+          reconciliation: 'Match bank and credit card activity to the books and identify items needing attention.',
+          apar: 'Stay on top of bills and invoices, with tracking and aging summaries at higher tiers.',
+          payroll: 'Organize payroll preparation and employee records with monthly support.',
+          monthend: 'Bring structure to month-end schedules, adjusting entries, and close summaries.',
+          reporting: 'Turn your records into useful financial statements and management insights.'
+        };
         const prices = gigData[chatState.market][key];
         const period = services[key].monthly ? '/mo' : '';
-        chatBubble('bot', `Inirerekomenda ko ang ${services[key].name}. Mga panimulang presyo para sa ${chatState.country}: Basic ${chatMoney(prices.basic)}${period}, Standard ${chatMoney(prices.standard)}${period}, Premium ${chatMoney(prices.premium)}${key === 'cleanup' ? '+' : ''}${period}. Piliin ang package at optional add-ons sa Pricing section. Kukumpirmahin ng JB Team ang final scope at quote.`);
+        const packageLines = tiers.map(tier => {
+          const price = `${chatMoney(prices[tier])}${cleanupPlus(key, tier) ? '+' : ''}${period}`;
+          return `${tierNames[tier]} — from ${price}: ${services[key].features[tier].join('; ')}.`;
+        });
+        chatBubble('bot', `${benefits[key]}\n\nFor a business based in ${chatState.country}, here are the ${services[key].name} packages:\n${packageLines.join('\n')}\n\nSelect View Packages to compare and choose a tier, or message the JB Team for a tailored quote. The team will confirm the final scope and price.`);
       }
-      const message = key === 'other'
-        ? `Hi Lourivel! Inirekomenda sa akin ni Anthony na humingi ng custom quote. Business country: ${chatState.country}. Maaari ba ninyo akong tulungan?`
-        : `Hi Lourivel! Inirekomenda sa akin ni Anthony ang ${services[key].name} batay sa aming chat. Business country: ${chatState.country}. Gusto kong magtanong tungkol sa Basic, Standard, at Premium packages. Pakikumpirma po ang final scope at quote.`;
+      const message = key === 'software'
+        ? `Hi Lourivel! My business uses ${software}. Anthony suggested I ask the JB Team about software support. My business is based in ${chatState.country}. Please confirm whether you can assist, along with the scope and quote. Here is what I need: `
+        : key === 'other'
+        ? `Hi Lourivel! Anthony suggested I request a custom quote. My business is based in ${chatState.country}. Could you help me find the right service?`
+        : `Hi Lourivel! Anthony recommended ${services[key].name} based on our chat. My business is based in ${chatState.country}. I would like to learn more about the Basic, Standard, and Premium packages. Please confirm the final scope and quote.`;
       const whatsapp = document.createElement('a');
       whatsapp.className = 'whatsapp'; whatsapp.target = '_blank'; whatsapp.rel = 'noopener noreferrer';
       whatsapp.href = `https://wa.me/639281502525?text=${encodeURIComponent(message)}`;
-      whatsapp.textContent = '💬 Kausapin ang JB Team sa WhatsApp';
+      whatsapp.textContent = '💬 Message the JB Team on WhatsApp';
       const view = document.createElement('button');
-      view.type = 'button'; view.className = 'view'; view.textContent = '📊 Tingnan ang Pricing Packages';
+      view.type = 'button'; view.className = 'view'; view.textContent = '📊 View Pricing Packages';
       view.addEventListener('click', () => {
         setMarket(chatState.market);
         if (chatState.market === 'usd') { countryField.value = chatState.country; lastInternationalCountry = chatState.country; countryField.dispatchEvent(new Event('input', { bubbles: true })); }
-        serviceSelect.value = key;
+        serviceSelect.value = key === 'software' ? 'other' : key;
         serviceSelect.dispatchEvent(new Event('change', { bubbles: true }));
         toggleChat(false);
         root.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
       const note = document.createElement('p');
       note.className = 'anthony-hint';
-      note.textContent = 'Bubukas ang WhatsApp. Pindutin ang Send doon; sasagot ang JB Team kapag available.';
+      note.textContent = 'WhatsApp will open with a draft message. Please press Send there; the JB Team will reply when available.';
       actions.append(whatsapp, view, note);
     }
     function chatMoney(amount) { return `${chatState.market === 'php' ? '₱' : '$'}${amount.toLocaleString('en-US')}`; }
