@@ -119,6 +119,7 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
       </select></div>
     </div>
     <div class="package-cards" id="package-cards" aria-live="polite"></div>
+    <p class="package-note" id="payroll-range-note" hidden>Philippine Payroll Support rates cover 20–35, 40–50, and 51–85 employees. For other team sizes, choose Other / Not Sure Yet to request a custom quote. Payroll compliance filing is excluded unless expressly included.</p>
     <div class="jb-custom-contact" id="custom-contact" hidden>
       <h3>Contact us directly</h3>
       <p>Hindi sigurado kung anong package ang swak sa iyo? Mag-message sa amin para sa isang custom quote!</p>
@@ -164,6 +165,7 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
     const cards = root?.querySelector('#package-cards');
     const customContact = root?.querySelector('#custom-contact');
     const addonSection = root?.querySelector('#addon-section');
+    const payrollRangeNote = root?.querySelector('#payroll-range-note');
     if (!root || !serviceSelect || !cards || !customContact || !addonSection) return;
 
     const countryField = root.querySelector('#business-country');
@@ -187,7 +189,7 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
         fullcycle: { basic: 3500, standard: 6000, premium: 10000 },
         cleanup: { basic: 4000, standard: 8000, premium: 16000 },
         reconciliation: { basic: 2000, standard: 4000, premium: 7500 },
-        payroll: { basic: 1500, standard: 5000, premium: 9000 },
+        payroll: { basic: 2500, standard: 5000, premium: 7000 },
         reporting: { basic: 2500, standard: 5000, premium: 9500 },
         apar: { basic: 1500, standard: 2500, premium: 4000 },
         monthend: { basic: 2500, standard: 4000, premium: 6000 }
@@ -251,6 +253,11 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
           basic: ['Basic monthly payroll preparation support (1–5 employees)'],
           standard: ['Payroll preparation & records review (6–20 employees)', 'Monthly summary'],
           premium: ['Expanded payroll support (21+ employees)', 'Records review and month-end summary']
+        },
+        phpFeatures: {
+          basic: ['Payroll preparation support for 20–35 employees'],
+          standard: ['Payroll preparation & records review for 40–50 employees', 'Monthly payroll summary'],
+          premium: ['Full payroll cycle support for 51–85 employees', 'Payroll register, records review & monthly handoff summary']
         }
       },
       reporting: {
@@ -292,6 +299,8 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
     const linkedInUrl = 'https://www.linkedin.com/in/lourivel-lorejo-b4186b205/';
     const money = amount => `${currentMarket === 'php' ? '₱' : '$'}${amount.toLocaleString('en-US')}`;
     const cleanupPlus = (key, tier) => key === 'cleanup' && tier === 'premium';
+    const featuresFor = (key, tier, market = currentMarket) =>
+      market === 'php' && services[key].phpFeatures ? services[key].phpFeatures[tier] : services[key].features[tier];
 
     function selectedAddons() {
       return [...addonSection.querySelectorAll('.jb-addon[data-addon]')].flatMap(row => {
@@ -351,8 +360,9 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
         `Hi Lourivel! Interesado ako sa ${info.name} - ${tierNames[tier].toUpperCase()} package para sa ${currentMarket.toUpperCase()} Market.`,
         `Business country: ${countryField.value.trim()}.`,
         `Starting package price: ${money(base)}${starting}${period}.`,
-        `Scope: ${info.features[tier].join('; ')}.`
+        `Scope: ${featuresFor(serviceKey, tier).join('; ')}.`
       ];
+      if (serviceKey === 'payroll') lines.push('Number of employees: [please specify].');
       if (chosen.length) lines.push(`Kasama ang mga add-ons: ${chosen.map(item => `${item.name} × ${item.quantity} (+${money(item.cost)})`).join(', ')}.`);
       lines.push(`Estimated starting total (base + add-ons): ${money(total)}${starting}${info.monthly && !chosen.length ? '/mo' : ''}.`);
       if (info.monthly && chosen.length) lines.push('Monthly base; please confirm add-on billing period.');
@@ -393,6 +403,7 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
       cards.hidden = other;
       addonSection.hidden = other;
       customContact.hidden = !other;
+      payrollRangeNote.hidden = !(key === 'payroll' && currentMarket === 'php');
       preview.hidden = true;
       updateCustomLinks();
       if (other) return;
@@ -403,7 +414,7 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
           <div class="package-name">${tierNames[tier]}</div>
           <div class="package-price">${money(base)}${cleanupPlus(key, tier) ? '+' : ''}<small>${info.monthly ? 'per month' : 'starting rate'}</small></div>
           <p class="package-scope">${info.name}</p>
-          <ul class="package-points">${info.features[tier].map(feature => `<li>${feature}</li>`).join('')}</ul>
+          <ul class="package-points">${featuresFor(key, tier).map(feature => `<li>${feature}</li>`).join('')}</ul>
           <p class="jb-estimate"></p><button class="choose-package" type="button" data-tier="${tier}">Choose ${tierNames[tier]}</button>
         </article>`;
       }).join('');
@@ -549,9 +560,12 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
         const period = services[key].monthly ? '/mo' : '';
         const packageLines = tiers.map(tier => {
           const price = `${chatMoney(prices[tier])}${cleanupPlus(key, tier) ? '+' : ''}${period}`;
-          return `${tierNames[tier]} — from ${price}: ${services[key].features[tier].join('; ')}.`;
+          return `${tierNames[tier]} — from ${price}: ${featuresFor(key, tier, chatState.market).join('; ')}.`;
         });
-        chatBubble('bot', `${benefits[key]}\n\nFor a business based in ${chatState.country}, here are the ${services[key].name} packages:\n${packageLines.join('\n')}\n\nSelect View Packages to compare and choose a tier, or message the JB Team for a tailored quote. The team will confirm the final scope and price.`);
+        const rangeAdvice = key === 'payroll' && chatState.market === 'php'
+          ? '\nFor other employee counts, request a custom quote from the JB Team. Payroll compliance filing is excluded unless expressly included.\n'
+          : '';
+        chatBubble('bot', `${benefits[key]}\n\nFor a business based in ${chatState.country}, here are the ${services[key].name} packages:\n${packageLines.join('\n')}${rangeAdvice}\nSelect View Packages to compare and choose a tier, or message the JB Team for a tailored quote. The team will confirm the final scope and price.`);
       }
       const message = key === 'software'
         ? `Hi Lourivel! My business uses ${software}. Anthony suggested I ask the JB Team about software support. My business is based in ${chatState.country}. Please confirm whether you can assist, along with the scope and quote. Here is what I need: `
