@@ -28,7 +28,7 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
 .jb-market button[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:#fff}
 .jb-pricing .package-card{min-height:350px}
 .jb-pricing .package-price small{display:block;font:600 12px Inter,system-ui,sans-serif;color:var(--muted);margin-top:5px}
-.jb-pricing .jb-estimate{font-size:12px;font-weight:800;color:var(--green);margin:2px 0 14px}
+.jb-pricing .jb-estimate{font-size:12px;font-weight:800;color:var(--green);margin:2px 0 14px}.jb-tax-breakdown{display:grid;gap:2px;padding:10px 12px;border-radius:10px;background:#eef6f4;color:var(--navy);font-size:12px;margin:0 0 12px}.jb-tax-breakdown strong{font-size:14px}
 .software-logos{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px;margin:24px 0 10px}
 .software-logo{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:92px;padding:10px 7px;border:1px solid #dce6e8;border-radius:12px;background:#fff;text-align:center}
 .software-mark{height:44px;display:flex;align-items:center;justify-content:center}
@@ -89,20 +89,21 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
 <section class="inquiry jb-pricing" id="inquiry"><div class="wrap">
   <div class="kicker">Service Packages</div>
   <h2>Choose the right package for your business.</h2>
-  <p class="lead">Select where your business is based and the service you need. Philippine businesses see PHP rates; businesses outside the Philippines see separate USD rates.</p>
+  <p class="lead">Choose the market where your business operates, then select a service. Our monthly bookkeeping plans have separate Philippine and United States rates; other countries can request a custom quote.</p>
   <div class="package-builder">
     <div class="selector-grid">
       <div class="field full"><span class="field-label">Business market</span>
         <div class="jb-market" role="group" aria-label="Business market">
           <button type="button" data-market="php" aria-pressed="true">Philippines · PHP 🇵🇭</button>
-          <button type="button" data-market="usd" aria-pressed="false">International · USD 🌍</button>
+          <button type="button" data-market="usd" aria-pressed="false">United States · USD 🇺🇸</button>
+          <button type="button" data-market="other" aria-pressed="false">Other Country · Custom Quote 🌍</button>
         </div>
       </div>
       <div class="field full"><label for="business-country">Business country</label><input id="business-country" value="Philippines" readonly required placeholder="Enter business country"></div>
       <div class="field full"><label for="service-select">Choose a service</label><select id="service-select" aria-describedby="service-description">
+        <option value="fullcycle">Monthly Bookkeeping &amp; Full-Cycle Plans</option>
         <option value="qbo">QuickBooks Online Setup &amp; Subscription Guidance</option>
         <option value="xero">Xero Setup &amp; E-Commerce Bookkeeping</option>
-        <option value="fullcycle">Full-Cycle Bookkeeping</option>
         <option value="cleanup">Cleanup &amp; Catch-Up Bookkeeping</option>
         <option value="reconciliation">Bank &amp; Credit Card Reconciliation</option>
         <option value="apar">Accounts Payable &amp; Accounts Receivable (AP/AR)</option>
@@ -122,6 +123,7 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
       </select></div>
     </div>
     <div class="package-cards" id="package-cards" aria-live="polite"></div>
+    <p class="package-note" id="market-tax-note" aria-live="polite"></p>
     <p class="package-note" id="payroll-range-note" hidden>Philippine Payroll Support rates cover 20–35, 40–50, and 51–85 employees. For other team sizes, choose Other / Not Sure Yet to request a custom quote. Payroll compliance filing is excluded unless expressly included.</p>
     <div class="jb-custom-contact" id="custom-contact" hidden>
       <h3>Contact us directly</h3>
@@ -143,7 +145,7 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
       <p id="addon-summary" aria-live="polite">No add-ons selected.</p>
       <p class="package-note">Add-ons apply to work beyond the selected package scope. The JB Team confirms availability, billing period, and final quote.</p>
     </div>
-    <p class="package-note">Prices are proposed starting rates for one business. Final scope and quotation depend on workload and record condition. Software subscriptions, tax return filing, and payroll compliance filing are included only when expressly stated in the agreed scope. Tax and VAT services are custom quoted.</p>
+    <p class="package-note">Prices are proposed starting rates for one business. Final scope and quotation depend on workload and record condition. Monthly plan tax support covers tax-ready records and coordination; return preparation or filing, payroll compliance filing, and software subscriptions are included only when expressly agreed. Tax and VAT services outside the monthly plan are custom quoted.</p>
     <p class="package-note">Your package button opens a draft in your chosen contact channel. Messenger and LinkedIn may require you to copy and paste the inquiry. Press Send in that app; clicking a link does not send a message. The JB Team will reply when available.</p>
     <div id="inquiry-preview" class="field" hidden><label for="inquiry-message">Your package inquiry</label><textarea id="inquiry-message" readonly rows="8"></textarea><button class="choose-package" type="button" id="copy-inquiry">Copy inquiry</button><p id="contact-status" role="status"></p><a id="reopen-contact" class="btn primary" target="_blank" rel="noopener noreferrer">Open selected contact</a></div>
     <div class="help-panel"><div><h3>Not sure which service fits?</h3><p>Ask Anthony, our guided package assistant. He can recommend a service and show the matching options. Please do not share passwords, bank logins, or card details.</p></div><button class="btn primary" type="button" id="open-anthony">Ask Anthony</button></div>
@@ -182,14 +184,14 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
     const tierNames = { basic: 'Basic', standard: 'Standard', premium: 'Premium' };
     const tiers = Object.keys(tierNames);
     let currentMarket = 'php';
-    let lastInternationalCountry = '';
+    let lastOtherCountry = '';
 
     // Separate fixed market rates. No exchange-rate multiplier is used.
     const gigData = {
       php: {
         consultation: { basic: 1500, standard: 3500, premium: 6000 },
         qbo: { basic: 1500, standard: 3500, premium: 6500 },
-        fullcycle: { basic: 3500, standard: 6000, premium: 10000 },
+        fullcycle: { basic: 2500, standard: 6000, premium: 12000 },
         cleanup: { basic: 4000, standard: 8000, premium: 16000 },
         reconciliation: { basic: 2000, standard: 4000, premium: 7500 },
         payroll: { basic: 2500, standard: 5000, premium: 7000 },
@@ -200,7 +202,7 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
       usd: {
         consultation: { basic: 35, standard: 75, premium: 150 },
         qbo: { basic: 40, standard: 85, premium: 160 },
-        fullcycle: { basic: 60, standard: 120, premium: 220 },
+        fullcycle: { basic: 99, standard: 249, premium: 499 },
         cleanup: { basic: 80, standard: 180, premium: 350 },
         reconciliation: { basic: 45, standard: 80, premium: 150 },
         payroll: { basic: 50, standard: 100, premium: 190 },
@@ -227,11 +229,16 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
         }
       },
       fullcycle: {
-        name: 'Full-Cycle Bookkeeping', monthly: true,
+        name: 'Monthly Bookkeeping & Full-Cycle Plans', monthly: true,
         features: {
-          basic: ['Monthly transaction categorization (up to 50 transactions)'],
-          standard: ['Monthly categorization & reconciliation (up to 150 transactions)', 'Basic month-end review'],
-          premium: ['Monthly categorization & reconciliation', 'Month-end review & regular financial reporting']
+          basic: ['Basic monthly bookkeeping', '1 bank account reconciliation', 'Financial statements'],
+          standard: ['Full-cycle bookkeeping', 'Up to 3 bank or card reconciliations', 'AR/AP tracking', 'Month-end close', 'US tax compliance support'],
+          premium: ['Everything in Standard', 'Shopify / Amazon e-commerce support', 'Payroll support', 'Cash flow forecasting', 'Quarterly strategy review']
+        },
+        phpFeatures: {
+          basic: ['Basic monthly bookkeeping', 'Up to 1 bank account reconciliation', 'Monthly financial statements'],
+          standard: ['Full-cycle bookkeeping', 'Up to 3 bank or credit card reconciliations', 'AR/AP tracking', 'Month-end close', 'Local tax compliance support'],
+          premium: ['Everything in Standard', 'E-commerce bookkeeping support', 'Payroll support', 'Cash flow forecasting', 'Quarterly review']
         }
       },
       cleanup: {
@@ -296,7 +303,7 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
     const serviceDescriptions = {
       qbo: 'We help choose a suitable QuickBooks Online subscription and configure essential settings and accounts for a clean start.',
       xero: customServices.xero.description,
-      fullcycle: 'We record recurring transactions, reconcile accounts, and maintain current books for dependable monthly reporting.',
+      fullcycle: 'Choose Basic, Standard, or Premium monthly bookkeeping support, with separate Philippine and United States rates.',
       cleanup: 'We review backlogged or miscategorized transactions and work through corrections to bring your books up to date.',
       reconciliation: 'We match bank and card activity to the books, investigate differences, and document outstanding items.',
       apar: 'We track vendor bills and customer invoices to support timely payments, collections, and clear balances.',
@@ -360,8 +367,8 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
       return `https://wa.me/639281502525?text=${encodeURIComponent(message)}`;
     }
     function countryIsValid() {
+      if (currentMarket === 'php' || currentMarket === 'usd') return true;
       const value = countryField.value.trim();
-      if (currentMarket === 'php') return true;
       if (!value) {
         countryField.setCustomValidity('Please enter the business country.');
         countryField.reportValidity();
@@ -369,9 +376,10 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
         return false;
       }
       if (/\b(philippines|pilipinas)\b/i.test(value) || /^ph$/i.test(value)) {
-        marketButtons.find(button => button.dataset.market === 'php')?.click();
-        countryField.focus();
-        return false; // Let the visitor review the PHP prices before continuing.
+        setMarket('php'); return false;
+      }
+      if (/\b(united states|usa|u\.s\.a\.|u\.s\.)\b/i.test(value) || /^us$/i.test(value)) {
+        setMarket('usd'); return false;
       }
       countryField.setCustomValidity('');
       return true;
@@ -379,20 +387,29 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
     function inquiryMessage(serviceKey, tier, chosen) {
       const info = services[serviceKey];
       const base = gigData[currentMarket][serviceKey][tier];
-      const total = base + chosen.reduce((sum, item) => sum + item.cost, 0);
+      const addonsTotal = chosen.reduce((sum, item) => sum + item.cost, 0);
+      const total = base + addonsTotal;
       const period = info.monthly ? '/mo' : '';
       const starting = cleanupPlus(serviceKey, tier) ? '+' : '';
+      const marketName = currentMarket === 'php' ? 'Philippines' : 'United States';
       const lines = [
-        `Hi Lourivel! Interesado ako sa ${info.name} - ${tierNames[tier].toUpperCase()} package para sa ${currentMarket.toUpperCase()} Market.`,
+        `Hi Lourivel! I am interested in the ${info.name} - ${tierNames[tier]} package for the ${marketName} market.`,
         `Business country: ${countryField.value.trim()}.`,
-        `Starting package price: ${money(base)}${starting}${period}.`,
+        `Base package price: ${money(base)}${starting}${period}.`,
         `Scope: ${featuresFor(serviceKey, tier).join('; ')}.`
       ];
       if (serviceKey === 'payroll') lines.push('Number of employees: [please specify].');
-      if (chosen.length) lines.push(`Kasama ang mga add-ons: ${chosen.map(item => `${item.name} × ${item.quantity} (+${money(item.cost)})`).join(', ')}.`);
-      lines.push(`Estimated starting total (base + add-ons): ${money(total)}${starting}${info.monthly && !chosen.length ? '/mo' : ''}.`);
-      if (info.monthly && chosen.length) lines.push('Monthly base; please confirm add-on billing period.');
-      lines.push('Pakikumpirma po ang final scope at quotation. Salamat!');
+      if (chosen.length) lines.push(`Selected add-ons: ${chosen.map(item => `${item.name} × ${item.quantity} (+${money(item.cost)})`).join(', ')}.`);
+      if (serviceKey === 'fullcycle' && currentMarket === 'php') {
+        const vat = Math.round(total * 0.12);
+        lines.push(`Estimated base plus add-ons: ${money(total)}. 12% VAT: ${money(vat)}. VAT-inclusive estimate: ${money(total + vat)}${chosen.length ? ' for the first billing period' : '/mo'}.`);
+        lines.push('VAT applies only if the transaction is subject to 12% Philippine VAT; please confirm tax treatment and add-on billing before invoicing.');
+      } else {
+        lines.push(`Estimated starting total (base + add-ons): ${money(total)}${starting}${info.monthly && !chosen.length ? '/mo' : ''}.`);
+        if (serviceKey === 'fullcycle') lines.push('Applicable US state or local sales tax, if any, will be confirmed before invoicing.');
+        if (info.monthly && chosen.length) lines.push('Monthly base; please confirm add-on billing period.');
+      }
+      lines.push('Please confirm the final scope and quotation. Thank you!');
       return lines.join('\n');
     }
     function showPreview(message, channel, destination) {
@@ -405,15 +422,18 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
         : 'Review your draft and press Send in the selected app.';
     }
     function updateCustomLinks() {
-      const selected = customServices[serviceSelect.value];
+      const selected = customServices[serviceSelect.value] || services[serviceSelect.value];
       const name = selected?.name || 'Custom accounting support';
       const country = countryField.value.trim() || 'To be confirmed';
-      const message = `Hi Lourivel! I am interested in ${name}. My business is based in ${country} (${currentMarket.toUpperCase()} market). Please confirm the available scope and a custom quote. My needs are: `;
-      customContact.querySelector('#custom-contact-copy').textContent = selected
-        ? serviceSelect.value === 'tax' || serviceSelect.value === 'salestax'
+      const marketLabel = currentMarket === 'php' ? 'Philippines' : currentMarket === 'usd' ? 'United States' : 'Other country';
+      const message = `Hi Lourivel! I am interested in ${name}. My business is based in ${country} (${marketLabel}). Please confirm the available scope and a custom quote. My needs are: `;
+      customContact.querySelector('#custom-contact-copy').textContent = currentMarket === 'other'
+        ? `Business outside the Philippines and United States? Tell us about your needs for ${name}; we will confirm availability and a custom quote.`
+        : serviceSelect.value === 'tax' || serviceSelect.value === 'salestax'
           ? `Interested in ${name}? Tell us your business location and tax jurisdiction. We will confirm the available preparation, review, and filing arrangements in a custom quote.`
-          : `Interested in ${name}? Tell us about your systems and workload so we can propose a suitable scope and custom quote.`
-        : 'Tell us what you need, and we will recommend a suitable service or prepare a custom quote.';
+          : selected
+            ? `Interested in ${name}? Tell us about your systems and workload so we can propose a suitable scope and custom quote.`
+            : 'Tell us what you need, and we will recommend a suitable service or prepare a custom quote.';
       customContact.querySelectorAll('a[data-channel]').forEach(link => {
         link.href = linkFor(link.dataset.channel, message, `JB inquiry — ${name}`);
         link.dataset.message = message;
@@ -421,33 +441,54 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
     }
     function updateCardEstimates() {
       const key = serviceSelect.value;
-      if (!services[key]) return;
+      if (!services[key] || currentMarket === 'other') return;
       const chosen = updateAddonDisplay();
       const added = chosen.reduce((sum, item) => sum + item.cost, 0);
       cards.querySelectorAll('.package-card[data-tier]').forEach(card => {
         const tier = card.dataset.tier;
         const total = gigData[currentMarket][key][tier] + added;
         const ending = services[key].monthly && !chosen.length ? '/mo' : '';
-        card.querySelector('.jb-estimate').textContent = `Estimated starting total: ${money(total)}${cleanupPlus(key, tier) ? '+' : ''}${ending}${services[key].monthly && chosen.length ? ' (monthly base + selected add-ons)' : ''}`;
+        if (key === 'fullcycle' && currentMarket === 'php') {
+          const vat = Math.round(total * 0.12);
+          card.querySelector('.jb-estimate').textContent = chosen.length
+            ? `With selected add-ons: ${money(total)} base + ${money(vat)} VAT = ${money(total + vat)} estimated first-period total.`
+            : `VAT-inclusive monthly total: ${money(total + vat)} if 12% VAT applies.`;
+        } else {
+          card.querySelector('.jb-estimate').textContent = `Estimated starting total: ${money(total)}${cleanupPlus(key, tier) ? '+' : ''}${ending}${services[key].monthly && chosen.length ? ' (monthly base + selected add-ons)' : ''}`;
+        }
       });
     }
     function updateUI() {
       const key = serviceSelect.value;
       root.querySelector('#service-description').textContent = serviceDescriptions[key] || '';
-      const other = key === 'other' || !services[key];
-      cards.hidden = other;
-      addonSection.hidden = other;
-      customContact.hidden = !other;
+      const custom = currentMarket === 'other' || key === 'other' || !services[key];
+      cards.hidden = custom;
+      addonSection.hidden = custom;
+      customContact.hidden = !custom;
       payrollRangeNote.hidden = !(key === 'payroll' && currentMarket === 'php');
       preview.hidden = true;
+      const taxNote = root.querySelector('#market-tax-note');
+      taxNote.textContent = currentMarket === 'other'
+        ? 'Other countries: contact the JB Team for a service-specific quote.'
+        : key === 'fullcycle' && currentMarket === 'php'
+          ? 'The 12% VAT amounts are estimates for transactions subject to Philippine VAT. JB Accounting Solutions will confirm the applicable tax treatment before invoicing.'
+          : key === 'fullcycle'
+            ? 'US prices exclude any state or local sales tax that may legally apply to the service and client location. Applicable tax, if any, is confirmed before invoicing.'
+            : currentMarket === 'php'
+              ? 'Individual service rates are starting prices; applicable tax treatment is confirmed in the final quote.'
+              : 'Individual service rates are starting prices; any applicable US tax is confirmed in the final quote.';
       updateCustomLinks();
-      if (other) return;
+      if (custom) return;
       const info = services[key];
       cards.innerHTML = tiers.map(tier => {
         const base = gigData[currentMarket][key][tier];
+        const monthlyVat = key === 'fullcycle' && currentMarket === 'php'
+          ? `<div class="jb-tax-breakdown"><span>Base: ${money(base)}/mo</span><span>12% VAT: ${money(Math.round(base * 0.12))}</span><strong>VAT-inclusive: ${money(base + Math.round(base * 0.12))}/mo</strong></div>`
+          : '';
         return `<article class="package-card${tier === 'standard' ? ' featured' : ''}" data-tier="${tier}">
           <div class="package-name">${tierNames[tier]}</div>
-          <div class="package-price">${money(base)}${cleanupPlus(key, tier) ? '+' : ''}<small>${info.monthly ? 'per month' : 'starting rate'}</small></div>
+          <div class="package-price">${money(base)}${cleanupPlus(key, tier) ? '+' : ''}<small>${info.monthly ? 'base per month' : 'starting rate'}</small></div>
+          ${monthlyVat}
           <p class="package-scope">${info.name}</p>
           <ul class="package-points">${featuresFor(key, tier).map(feature => `<li>${feature}</li>`).join('')}</ul>
           <p class="jb-estimate"></p><button class="choose-package" type="button" data-tier="${tier}">Choose ${tierNames[tier]}</button>
@@ -456,13 +497,13 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
       updateCardEstimates();
     }
     function setMarket(next) {
-      if (next !== 'php' && next !== 'usd') return;
+      if (!['php', 'usd', 'other'].includes(next)) return;
       if (next !== currentMarket) {
-        if (currentMarket === 'usd') lastInternationalCountry = countryField.value;
+        if (currentMarket === 'other') lastOtherCountry = countryField.value;
         currentMarket = next;
-        countryField.readOnly = next === 'php';
-        countryField.value = next === 'php' ? 'Philippines' : lastInternationalCountry;
       }
+      countryField.readOnly = next !== 'other';
+      countryField.value = next === 'php' ? 'Philippines' : next === 'usd' ? 'United States' : lastOtherCountry;
       marketButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.market === next)));
       countryField.setCustomValidity('');
       updateUI();
@@ -526,7 +567,8 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
       chatState.market = ''; chatState.country = ''; chatState.need = ''; chatState.software = '';
       chatBubble('bot', 'Hello! I am Anthony, your JB Accounting Solutions package guide. I can help you find a service and package that fits your business. Where is your business based?');
       chatChoice('Philippines · PHP Market 🇵🇭', () => { chatState.market = 'php'; chatState.country = 'Philippines'; askNeed(); });
-      chatChoice('International · USD Market 🌍', () => { chatState.market = 'usd'; askCountry(); });
+      chatChoice('United States · USD Market 🇺🇸', () => { chatState.market = 'usd'; chatState.country = 'United States'; askNeed(); });
+      chatChoice('Other Country · Custom Quote 🌍', () => { chatState.market = 'other'; askCountry(); });
     }
     function askCountry() {
       chatBubble('bot', 'Which country is your business based in?');
@@ -541,7 +583,13 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
         if (/\b(philippines|pilipinas)\b/i.test(value) || /^ph$/i.test(value)) {
           chatState.market = 'php'; chatState.country = 'Philippines';
           chatBubble('user', 'Philippines'); chatBubble('bot', 'I will use the Philippine rates for your business.');
-        } else { chatState.country = value; chatBubble('user', value); }
+        } else if (/\b(united states|usa|u\.s\.a\.|u\.s\.)\b/i.test(value) || /^us$/i.test(value)) {
+          chatState.market = 'usd'; chatState.country = 'United States';
+          chatBubble('user', 'United States'); chatBubble('bot', 'I will use the United States rates for your business.');
+        } else {
+          chatState.market = 'other'; chatState.country = value; chatBubble('user', value);
+          chatBubble('bot', 'The JB Team will confirm a custom scope and quote for your country.');
+        }
         askNeed();
       };
       input.addEventListener('input', () => input.setCustomValidity(''));
@@ -555,7 +603,7 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
       [
         ['QuickBooks Online setup and subscription help', 'qbo'],
         ['Xero setup and e-commerce bookkeeping', 'xero'],
-        ['Monthly full-cycle bookkeeping', 'fullcycle'],
+        ['Monthly bookkeeping plans', 'fullcycle'],
         ['Cleanup / catch-up of backlogs', 'cleanup'],
         ['Bank and credit card reconciliation', 'reconciliation'],
         ['Accounts payable / accounts receivable', 'apar'],
@@ -578,7 +626,10 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
       chatState.need = key;
       chatState.software = software;
       actions.replaceChildren();
-      if (key === 'software') {
+      if (chatState.market === 'other') {
+        const name = key === 'software' ? `${software} support` : services[key]?.name || customServices[key]?.name || 'accounting support';
+        chatBubble('bot', `Thank you. For ${name} in ${chatState.country}, the JB Team will review your requirements and confirm availability, scope, and a custom quote. Select Contact & Custom Quote or leave a WhatsApp message.`);
+      } else if (key === 'software') {
         chatBubble('bot', `Thanks for telling me you use ${software}. Tell the JB Team what you need done in this system. The team will review whether it can support the work and confirm a custom scope and quote. Select Contact & Custom Quote for contact options, or leave a WhatsApp message.`);
       } else if (key === 'other') {
         chatBubble('bot', 'Every business is different. For a tailored recommendation, select Contact & Custom Quote to see the direct contact options or leave the JB Team a message on WhatsApp.');
@@ -591,7 +642,7 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
         const benefits = {
           consultation: 'Get practical guidance on your accounting workflow and QuickBooks so you can move forward with more clarity.',
           qbo: 'Set up QuickBooks around your business needs, with subscription guidance and a clear handoff.',
-          fullcycle: 'Keep monthly records organized through categorization, reconciliation, and reporting options.',
+          fullcycle: 'Choose the right monthly bookkeeping plan for your business, from essential recordkeeping to full-cycle support and quarterly reviews.',
           cleanup: 'Work through overdue records and discrepancies with a defined cleanup scope.',
           reconciliation: 'Match bank and credit card activity to the books and identify items needing attention.',
           apar: 'Stay on top of bills and invoices, with tracking and aging summaries at higher tiers.',
@@ -603,14 +654,25 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
         const period = services[key].monthly ? '/mo' : '';
         const packageLines = tiers.map(tier => {
           const price = `${chatMoney(prices[tier])}${cleanupPlus(key, tier) ? '+' : ''}${period}`;
+          if (key === 'fullcycle' && chatState.market === 'php') {
+            const vat = Math.round(prices[tier] * 0.12);
+            return `${tierNames[tier]} — ${price} base + ${chatMoney(vat)} VAT = ${chatMoney(prices[tier] + vat)}/mo if 12% VAT applies: ${featuresFor(key, tier, chatState.market).join('; ')}.`;
+          }
           return `${tierNames[tier]} — from ${price}: ${featuresFor(key, tier, chatState.market).join('; ')}.`;
         });
         const rangeAdvice = key === 'payroll' && chatState.market === 'php'
           ? '\nFor other employee counts, request a custom quote from the JB Team. Payroll compliance filing is excluded unless expressly included.\n'
           : '';
-        chatBubble('bot', `${benefits[key]}\n\nFor a business based in ${chatState.country}, here are the ${services[key].name} packages:\n${packageLines.join('\n')}${rangeAdvice}\nSelect View Packages to compare and choose a tier, or message the JB Team for a tailored quote. The team will confirm the final scope and price.`);
+        const taxAdvice = key === 'fullcycle'
+          ? chatState.market === 'php'
+            ? '\nVAT is shown only as an estimate for transactions subject to 12% VAT. Please confirm the final tax treatment with the JB Team.\n'
+            : '\nUS state or local sales tax, if legally applicable, is confirmed before invoicing.\n'
+          : '';
+        chatBubble('bot', `${benefits[key]}\n\nFor a business based in ${chatState.country}, here are the ${services[key].name} packages:\n${packageLines.join('\n')}${rangeAdvice}${taxAdvice}\nSelect View Packages to compare and choose a tier, or message the JB Team for a tailored quote. The team will confirm the final scope and price.`);
       }
-      const message = key === 'software'
+      const message = chatState.market === 'other'
+        ? `Hi Lourivel! Anthony suggested I request a custom quote for ${key === 'software' ? software + ' support' : services[key]?.name || customServices[key]?.name || 'accounting support'}. My business is based in ${chatState.country}. My needs are: `
+        : key === 'software'
         ? `Hi Lourivel! My business uses ${software}. Anthony suggested I ask the JB Team about software support. My business is based in ${chatState.country}. Please confirm whether you can assist, along with the scope and quote. Here is what I need: `
         : key === 'other'
         ? `Hi Lourivel! Anthony suggested I request a custom quote. My business is based in ${chatState.country}. Could you help me find the right service?`
@@ -622,10 +684,10 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
       whatsapp.href = `https://wa.me/639281502525?text=${encodeURIComponent(message)}`;
       whatsapp.textContent = '💬 Message the JB Team on WhatsApp';
       const view = document.createElement('button');
-      view.type = 'button'; view.className = 'view'; view.textContent = customServices[key] || key === 'software' || key === 'other' ? 'Contact & Custom Quote' : '📊 View Pricing Packages';
+      view.type = 'button'; view.className = 'view'; view.textContent = chatState.market === 'other' || customServices[key] || key === 'software' || key === 'other' ? 'Contact & Custom Quote' : '📊 View Pricing Packages';
       view.addEventListener('click', () => {
         setMarket(chatState.market);
-        if (chatState.market === 'usd') { countryField.value = chatState.country; lastInternationalCountry = chatState.country; countryField.dispatchEvent(new Event('input', { bubbles: true })); }
+        if (chatState.market === 'other') { countryField.value = chatState.country; lastOtherCountry = chatState.country; countryField.dispatchEvent(new Event('input', { bubbles: true })); }
         serviceSelect.value = key === 'software' ? 'other' : key;
         serviceSelect.dispatchEvent(new Event('change', { bubbles: true }));
         toggleChat(false);
