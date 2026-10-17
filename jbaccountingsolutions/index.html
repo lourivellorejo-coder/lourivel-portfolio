@@ -550,7 +550,7 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
       actions.append(input, next); input.focus();
     }
     function askNeed() {
-      chatBubble('bot', 'Which service would help your business most? Select one and I will show you the package options.');
+      chatBubble('bot', 'Which service would help your business most? Select one and I will show matching packages or custom quote options.');
       actions.replaceChildren();
       [
         ['QuickBooks Online setup and subscription help', 'qbo'],
@@ -579,14 +579,14 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
       chatState.software = software;
       actions.replaceChildren();
       if (key === 'software') {
-        chatBubble('bot', `Thanks for telling me you use ${software}. Tell the JB Team what you need done in this system. The team will review whether it can support the work and confirm a custom scope and quote. Select View Packages for contact options, or leave a WhatsApp message.`);
+        chatBubble('bot', `Thanks for telling me you use ${software}. Tell the JB Team what you need done in this system. The team will review whether it can support the work and confirm a custom scope and quote. Select Contact & Custom Quote for contact options, or leave a WhatsApp message.`);
       } else if (key === 'other') {
-        chatBubble('bot', 'Every business is different. For a tailored recommendation, select View Packages to see the direct contact options or leave the JB Team a message on WhatsApp.');
+        chatBubble('bot', 'Every business is different. For a tailored recommendation, select Contact & Custom Quote to see the direct contact options or leave the JB Team a message on WhatsApp.');
       } else if (customServices[key]) {
         const taxNote = key === 'tax' || key === 'salestax'
           ? ' Tax obligations vary by jurisdiction; the JB Team will confirm the available review and authorized filing arrangements.'
           : '';
-        chatBubble('bot', `${customServices[key].description} This service is quoted after we review your needs and business location.${taxNote} Select View Packages for contact options or message the JB Team on WhatsApp.`);
+        chatBubble('bot', `${customServices[key].description} This service is quoted after we review your needs and business location.${taxNote} Select Contact & Custom Quote for contact options or message the JB Team on WhatsApp.`);
       } else {
         const benefits = {
           consultation: 'Get practical guidance on your accounting workflow and QuickBooks so you can move forward with more clarity.',
@@ -622,7 +622,7 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
       whatsapp.href = `https://wa.me/639281502525?text=${encodeURIComponent(message)}`;
       whatsapp.textContent = '💬 Message the JB Team on WhatsApp';
       const view = document.createElement('button');
-      view.type = 'button'; view.className = 'view'; view.textContent = '📊 View Pricing Packages';
+      view.type = 'button'; view.className = 'view'; view.textContent = customServices[key] || key === 'software' || key === 'other' ? 'Contact & Custom Quote' : '📊 View Pricing Packages';
       view.addEventListener('click', () => {
         setMarket(chatState.market);
         if (chatState.market === 'usd') { countryField.value = chatState.country; lastInternationalCountry = chatState.country; countryField.dispatchEvent(new Event('input', { bubbles: true })); }
