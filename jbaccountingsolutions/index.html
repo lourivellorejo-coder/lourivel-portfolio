@@ -111,7 +111,7 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
         <option value="reporting">Financial Reporting</option>
         <option value="salestax">Sales Tax &amp; VAT Management</option>
         <option value="tax">Tax Preparation &amp; Compliance Support</option>
-        <option value="consultation">Accounting Consultation &amp; QuickBooks Training</option>
+        <option value="consultation">Accounting Review, Consultation &amp; QuickBooks Training</option>
         <option value="other">Other / Not Sure Yet</option>
       </select><p class="service-description" id="service-description" aria-live="polite"></p></div>
       <div class="field full"><label for="contact-channel">Preferred contact channel</label><select id="contact-channel">
@@ -211,7 +211,7 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
     };
     const services = {
       consultation: {
-        name: 'Accounting Consultation & QuickBooks Training',
+        name: 'Accounting Review, Consultation & QuickBooks Training',
         features: {
           basic: ['1-hour live Q&A consultation', 'Subscription alignment & basic software orientation'],
           standard: ['1-hour consultation', 'Live team screen-share training and walkthrough'],
@@ -564,7 +564,7 @@ footer{background:#061f30;color:#cbdde2;padding:26px 0;font-size:13px}.foot{disp
         ['Financial reporting', 'reporting'],
         ['Sales tax and VAT management', 'salestax'],
         ['Tax preparation and compliance support', 'tax'],
-        ['Accounting consultation / QuickBooks training', 'consultation'],
+        ['Accounting review, consultation & QuickBooks training', 'consultation'],
         ['Sage / MYOB / NetSuite / SAP / Oracle assistance', 'software'],
         ['Other help / Not sure yet', 'other']
       ].forEach(([label, key]) => chatChoice(label, () => key === 'software' ? askSoftware() : showChatPitch(key)));
